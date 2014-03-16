@@ -1,0 +1,18 @@
+{
+	"name": "jquery-binabacus",
+	"version": "3.3.3",
+	"homepage": "http://jquerybinabacus.com",
+	"authors": [
+		"Juan Lanus <juan.lanus@gmail.com>"
+	],
+	"description": "A didactic binary abacus.",
+	"main": "src/jquery.binabacus.js",
+	"keywords": [
+		"jquery",
+		"plugin",
+		"binabacus",
+		"jquery-plugin",
+		"jquery-binabacus"
+	],
+	"license": "MIT"
+}

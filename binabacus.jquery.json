@@ -1,0 +1,32 @@
+{
+  "name": "binabacus",
+  "title": "binabacus jQuery",
+  "description": "A binary abacus for toying with binary numbers.",
+  "keywords": [ "jquery", "binabacus", "plugins" ],
+  "version": "0.1.1",
+  "author": {
+    "name": "Juan Lanus",
+    "email": "juan.lanus@gmail.com",
+    "url": "https://github.com/jlanus"
+  },
+  "maintainers": [
+    {
+      "name": "Juan Lanus",
+      "email": "juan.lanus@gmail.com",
+      "url": "https://github.com/jlanus"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://zenorocha.mit-license.org/"
+    }
+  ],
+  "bugs": "https://github.com/jlanus/binabacus/issues",
+  "homepage": "http://jquerybinabacus.com",
+  "docs": "https://github.com/jlanus/binabacus#readme",
+  "download": "https://github.com/jlanus/binabacus/archive/master.zip",
+  "dependencies": {
+    "jquery": ">=1.10"
+  }
+}

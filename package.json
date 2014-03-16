@@ -1,0 +1,23 @@
+{
+  "name": "jquery-binabacus",
+  "title": "jQuery binabacus",
+  "description": "A didactic binary abacus.",
+  "author": "Juan Lanus",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/jlanus/binabacus.git"
+  },
+  "homepage": "https://github.com/jlanus/binabacus/",
+  "version": "0.1.1",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.3.2",
+    "grunt-contrib-coffee": "~0.9.0"
+  },
+  "scripts": {
+    "test": "grunt travis --verbose"
+  }
+}
