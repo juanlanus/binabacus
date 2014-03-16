@@ -10,7 +10,7 @@
       silent: false,                        // silent (default no)
       clickVolume: 0.3,                     // click volume (default 0.3)
       clickSound: 'ba_clicksound',          // id of an <audio> element providing the ball's click
-      ballTravelTime: '0.4s',               // ball travel time (default 0.4s)
+      ballTravelTime: '0.3s',               // ball travel time (default 0.3s)
       ballEasing: 'ease-in'                 // easing function (default 'ease-in')
     };
 
@@ -26,6 +26,156 @@
 
   Plugin.prototype = {  // this.element is the target DOM element, this.settings is the merged options object
 
+    // build the HTML of an audio element loaded with the ball's click, once per page
+    buildAudio: function() {
+
+      if( document.getElementById( this.settings.clickSound )) {
+        // don't create nothing, it's already there
+      } else {
+        // build the default <audio> with two embedded sources: MP3 and OGG
+        var audioHTML =
+        '<audio id="ba_clickSound" preload="auto" volume="' + this.settings.clickVolume + '" style="display:none">' +
+        this.audioMP3 +
+        this.audioOGG +
+        '</audio>';
+        $('body').append( audioHTML );
+      }
+    },
+
+    buildAbacus: function() {
+
+      // clean the target
+      $(this.element).empty();
+
+      var
+        i = 0,
+        row0 = [],
+        row1 = [],
+        HTMLText =
+          '<div>' +
+          '  <!-- the abacus itself -->' +
+          '  <table>' +
+          '    <tbody>' +
+          '      <tr> <!-- first row: animated black balls -->' +
+          '        #first-row#' +
+          '      </tr>' +
+          '      <tr> <!-- second row: displayed digit values -->' +
+          '        #second-row#' +
+          '      </tr>' +
+          '    </tbody>' +
+          '  </table>' +
+          '  <div class="ba_numValue">&nbsp;</div>' +
+          '  <button class="ba_addOne">+1</button>' +
+          '</div>';
+      // build the <td>s of the table rows, one cell per bit
+      for( i = 0; i < this.settings.numBits; i++ ) {
+        row0.push( '<td class="ba_bit ba_0" title="' + Math.pow(2, i ) + '">&nbsp;</td>' );
+        row1.push( '<td class="ba_digit">0</td>' );
+      }
+      // insert the table rows in place and set the HTML in the page
+      $(this.element).addClass( 'ba_abacus' );
+      $(this.element).html( HTMLText.replace( '#first-row#', row0.reverse().join( '' ) )
+      .replace( '#second-row#', row1.reverse().join( '' ) ) );
+
+      // apply options for ball travel time and easing if present, the css method
+      // returns something like "background-position 0.3s ease-in 0s"
+      var 
+        animCSS = $('.ba_abacus td.ba_bit').css( 'transition' ).split( ' ' ),
+        changed = false;
+      if( animCSS[0] === 'background-position' ) {
+        if( this.settings.ballTravelTime !== defaults.ballTravelTime ) {
+          animCSS[1] = this.settings.ballTravelTime;
+          changed = true;
+        }
+        if( this.settings.ballEasing !== defaults.ballEasing ) {
+          animCSS[2] = this.settings.ballEasing;
+          changed = true;
+        }
+        if( changed ) {
+          $( '.ba_abacus td.ba_bit' ).css( 'transition', animCSS.join(' ') );
+        }
+      }
+    },
+
+    init: function () {
+      // clear the target element and create the abacus elements
+      this.buildAudio();
+      this.buildAbacus();
+      // TODO: load the initial value
+
+      // create references to the target DOM element
+      var
+        target = this.element;
+
+      // toggle this ball's state when clicked, adjust displayed numeric bit value
+      $( '.ba_bit', target ).on(
+        'click',
+        function(e) {
+          var $this = $(this);
+          // switch the ball position
+          $this.toggleClass('ba_1 ba_0');
+          // get a ref to the cell that displays the bit value 0/1 (next row, same column) and toggle it
+          var $theBitValueCell =  $(this.parentElement.nextElementSibling).find('td:eq(' + this.cellIndex +')' );
+          $theBitValueCell.text( $this.hasClass( 'ba_1' ) ? '1' : '0' );
+          // get a reference to the settings object
+          var theSettings = $(this).closest( '.ba_abacus' ).data('plugin_binabacus').settings;
+          // calculate the numeric value looping over the ball cells (the value is the class)
+          var
+            numValue = 0,
+            bitValue = 1,
+            $theBitCells =  $(this.parentElement).children( 'td.ba_bit' );
+          for( var i = theSettings.numBits - 1; i >= 0; i-- ) {
+            numValue += $( $theBitCells[i] ).hasClass( 'ba_1' ) ? bitValue : 0;
+            bitValue *= 2;
+          }
+          $('#binAbacus .ba_numValue').text( numValue );
+        }
+      );
+
+      // make a click sound when the ball hits the other side
+      if( this.settings.silent ) {
+        // don't set this event handler
+      } else {
+        $( '.ba_bit', target ).on(
+          'transitionend',
+          function(e) {
+            // play the click sound
+            document.getElementById( 'ba_clickSound' ).cloneNode(true).play();
+          }
+        );
+      }
+
+      // add 1 to the number value when the [+1] button is clicked
+      $( '.ba_addOne', target ).on(
+        'click',
+        // scan the bits from right to left flipping them until a zero is reached
+        function() {
+          // get a reference to the settings object
+          var theSettings = $(this).closest( '.ba_abacus' ).data('plugin_binabacus').settings;
+          // do the addition loop
+          var
+            $theBitCells = $(this).closest( '.ba_abacus' ).find( 'tr:eq(0)' ),
+            $theBitCell = null;
+          for( var i = theSettings.numBits - 1; i >= 0; i-- ) {
+            $theBitCell = $( $theBitCells.children( 'td.ba_bit' )[i] );
+            $theBitCell.click();
+            if( $theBitCell.hasClass( 'ba_1' ) ) {
+              break;
+            }
+          }
+        }
+      );
+
+    },
+
+    // you can add more functions like the one below and
+    // call them like so: this.yourOtherFunction(this.element, this.settings).
+    // console.log('xD');
+    yourOtherFunction: function () {
+      // some logic
+    },
+
+    // lengthy literals at the bottom of the file, to lessen scroll during edition
     audioMP3:
       '<source type="audio/mp3" src="data:audio/ogg;base64,T2dnUwACAAAAAAAAAADdnnk2AAAAAEJILmoBHgF2b3JiaXMA' +
       'AAAAAsBdAAAAAAAAwFcBAAAAAACpAU9nZ1MAAAAAAAAAAAAA3Z55NgEAAAALmXdXDj3///////////////+iA3ZvcmJpcy0AAABY' +
@@ -240,135 +390,8 @@
       'arG62sYKM1BiYwE4CTfS2bX6TfVoVYzahWMKAowEysfqqAVqTEFNRTMuOTkuNaqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq' +
       'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq' +
       'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq' +
-      'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq">',
+      'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq">'
 
-    // build the HTML of an audio element loaded with the ball's click, once per page
-    // replaces <source src="res/192278_3509815-lq.mp3" type="audio/mp3"> and
-    // <source src="res/192278_3509815-lq.ogg" type="audio/ogg">
-    buildAudio: function() {
-
-      if( document.getElementById( this.settings.clickSound )) {
-        // don't create nothing, it's already there
-      } else {
-        // build the default <audio> with two embedded sources: MP3 ans OGG
-        var audioHTML =
-        '<audio id="ba_clickSound" preload="auto" volume="' + this.settings.clickVolume + '" style="display:none">' +
-        this.audioMP3 +
-        this.audioOGG +
-        '</audio>';
-        $('body').append( audioHTML );
-      }
-    },
-
-    buildAbacus: function() {
-
-      // clean the target
-      $(this.element).empty();
-
-      var
-        i = 0,
-        row0 = [],
-        row1 = [],
-        HTMLText =
-          '<div>' +
-          '  <!-- the abacus itself -->' +
-          '  <table>' +
-          '    <tbody>' +
-          '      <tr> <!-- first row: animated black balls -->' +
-          '        #first-row#' +
-          '      </tr>' +
-          '      <tr> <!-- second row: displayed digit values -->' +
-          '        #second-row#' +
-          '      </tr>' +
-          '    </tbody>' +
-          '  </table>' +
-          '  <div class="ba_numValue">&nbsp;</div>' +
-          '  <button class="ba_addOne">+1</button>' +
-          '</div>';
-      // build the <td>s of the table rows, one cell per bit
-      for( i = 0; i < this.settings.numBits; i++ ) {
-        row0.push( '<td class="ba_bit ba_0" title="' + Math.pow(2, this.settings.numBits - i - 1 ) + '">&nbsp;</td>' );
-        row1.push( '<td class="ba_digit">0</td>' );
-      }
-      // insert the table rows in place and set the HTML in the page
-      $(this.element).addClass( 'ba_abacus' );
-      $(this.element).html( HTMLText.replace( '#first-row#', row0.reverse().join( '' ) )
-      .replace( '#second-row#', row1.reverse().join( '' ) ) );
-    },
-
-    init: function () {
-      // clear the target element and create the abacus elements
-      this.buildAudio();
-      this.buildAbacus();
-      // TODO: load the initial value
-
-      // create references to the target DOM element
-      var
-        target = this.element;
-
-      // toggle this ball's state when clicked, adjust displayed numeric bit value
-      $( '.ba_bit', target ).on(
-        'click',
-        function(e) {
-          var $this = $(this);
-          // switch the ball position
-          $this.toggleClass('ba_1 ba_0');
-          // get a ref to the cell that displays the bit value 0/1 (next row, same column) and toggle it
-          var $theBitValueCell =  $(this.parentElement.nextElementSibling).find('td:eq(' + this.cellIndex +')' );
-          $theBitValueCell.text( $this.hasClass( 'ba_1' ) ? '1' : '0' );
-          // get a reference to the settings object
-          var theSettings = $(this).closest( '.ba_abacus' ).data('plugin_binabacus').settings;
-          // calculate the numeric value looping over the ball cells (the value is the class)
-          var
-            numValue = 0,
-            bitValue = 1,
-            $theBitCells =  $(this.parentElement).children( 'td.ba_bit' );
-          for( var i = theSettings.numBits - 1; i >= 0; i-- ) {
-            numValue += $( $theBitCells[i] ).hasClass( 'ba_1' ) ? bitValue : 0;
-            bitValue *= 2;
-          }
-          $('#binAbacus .ba_numValue').text( numValue );
-        }
-      );
-
-      // make a click sound when the ball hits the other side
-      $( '.ba_bit', target ).on(
-        'transitionend',
-        function(e) {
-          // play the click sound
-          document.getElementById( 'ba_clickSound' ).cloneNode(true).play();
-        }
-      );
-
-      // add 1 to the number value when the [+1] button is clicked
-      $( '.ba_addOne', target ).on(
-        'click',
-        // scan the bits from right to left flipping them until a zero is reached
-        function() {
-          // get a reference to the settings object
-          var theSettings = $(this).closest( '.ba_abacus' ).data('plugin_binabacus').settings;
-          // do the addition loop
-          var
-            $theBitCells = $(this).closest( '.ba_abacus' ).find( 'tr:eq(0)' ),
-            $theBitCell = null;
-          for( var i = theSettings.numBits - 1; i >= 0; i-- ) {
-            $theBitCell = $( $theBitCells.children( 'td.ba_bit' )[i] );
-            $theBitCell.click();
-            if( $theBitCell.hasClass( 'ba_1' ) ) {
-              break;
-            }
-          }
-        }
-      );
-
-    },
-
-    // you can add more functions like the one below and
-    // call them like so: this.yourOtherFunction(this.element, this.settings).
-    // console.log('xD');
-    yourOtherFunction: function () {
-      // some logic
-    }
   };
 
   // a really lightweight plugin wrapper around the constructor, preventing against multiple instantiations
