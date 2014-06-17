@@ -3,8 +3,8 @@
   <head>
     <title>jQuery binabacus</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="../src/jquery.binabacus.js"></script>
-    <link rel="stylesheet" href="res/binabacus.css">
+    <script src="../dist/jquery.binabacus.js"></script>
+    <link href="../dist/jquery.binabacus.css" rel="stylesheet">
   </head>
   <body>
     <script>
@@ -18,17 +18,29 @@
           // ballTravelTime: '0.9s',               // ball travel time (default 0.3s)
           // ballEasing: 'linear'                  // easing function (default 'ease-in')
         });
+        // MULTIPLE INSTANCES NOT ALLOWED: create another binabacus widget
+        /*
+        $("#binAbacus2").binabacus({
+          numBits: 8
+          // ,
+          // silent: true,
+          // clickVolume: '0.1',
+          // ballTravelTime: '0.9s',               // ball travel time (default 0.3s)
+          // ballEasing: 'linear'                  // easing function (default 'ease-in')
+        }); */
       });
     </script>
 
-    <!-- the click sound of a ball ending its trip
+    <!-- provide your own click sound for a ball ending its trip
     <audio id="ba_clickSoundCustom" preload="auto" volume="0.3" style="display:none">
       <source type="audio/mp3" src="res/binabacusClick.mp3">
       <source type="audio/ogg" src="res/binabacusClick.ogg">
-    </audio> -->
+    </audio>
+    -->
 
-
-    <div id="binAbacus" style="padding:2em; background-color:transparent;">
+    <!-- the widget containers -->
+    <div id="binAbacus" style="margin:1em; padding:2em; background-color:transparent;">
+    <div id="binAbacus2" style="margin:1em; padding:2em; background-color:transparent;">
     </div>
 
 

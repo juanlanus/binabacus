@@ -16,7 +16,7 @@
                 transition:background-position .3s ease-in ; 
       }
       .ba_1   { background-position:0% -75px; 
-                transition:background-position ease-in .3s;
+                transition:background-position .3s ease-in;
       }
       .ba_digit { color:white; background-color:black; font-weight:bold; text-align:center; }
       .ba_numValue { position:absolute; top:35px; z-index:-1; font-size:250%; color:rgb(128,128,128);
