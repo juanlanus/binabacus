@@ -438,9 +438,9 @@ Done, without errors.</pre>
      
     <li>
     <h5>finally, the plugin</h5>
-    <p>At this point there are no excuses left, it comes the programming of
-    the plugin itself and its test. In my case it should be working quickly
-    since I already have a non-plugin version up and running. </p>
+    <p>At this point there sere no excuses left, it programming ans testing 
+    time of the plugin itself. In my case it worked quickly because
+    I already had the non-plugin version up and running. </p>
 
     <pre>gvim ~/<span class="nameInstance">binabacus</span>/src/jquery.<span class="nameInstance">binabacus</span>.js</pre>
     <p>It came out easy: I was able to replicate the original behavior in no
@@ -449,21 +449,95 @@ Done, without errors.</pre>
 
     <p>But it was not quite a plugin yet. It worked, but still lacking some
     of the characteristics that make a proper jQuery plugin. </p>
+     
+    <li>
+    <h5>bootstrapping</h5>
 
-    <p>Firstly, my plugin relies on a specific HTML structure being laid out
+    <p>The default binabacus plugin is instantiated thus: </p>
+
+    <pre>
+        // create a binabacus widget
+	$("#binAbacus").binabacus();</pre>
+
+    <p>The final effect of this code line is that the plugin is created in the
+    designated container. </p>
+    
+    <p>The first step is that jQuery builds the usual jQuery object made
+    up of all the elements with a <code>binAbacus</code> id, hopefully only one, and
+    passes it via the <code>this</code> reference to the <a target="_code"
+    href="code.html#entryPoint"><code>$.fn.<span class="">binabacus</span></code></a>
+    function. </p>
+  
+    <p>First thing, the function checks that the plugin isn't already instantiated. <br>
+    To do so it queries the <code title="jQuery.data( element, key, value )">data</code>
+    property of the plugin container with key
+    <code>jquery_<span class="nameInstance">binabacus</span></code>. <br>
+    If the key exists, the function exits silently. </p>
+
+    <p>Otherwise it calls <code title="jQuery.data( element, key, value )">data</code>
+    again, this time with <a target="_code" href="code.html#Plugin"><code>$.fn.<span
+    class="">the plugin constructor</span></code></a> as the third argument. </p>
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+    
+http://api.jquery.com/jQuery.data/
+<span class="nameInstance">binabacus</span>
+it does so because jQuery plugins persist their state ...
+<a target="_code" href="code.html#Plugin"><code>$.fn.<span class="">the plugin constructor</span></code></a>
+
+
+
+    <p>
+    <a target="_code" href="code.html#audioOGG">eee</a>
+    </p>
+
+
+
+
+    <p>The plugin relies on a specific HTML structure being laid out
     in the page's DOM, like this: <br>
-    <pre>&lt;tr&gt;
-  &lt;td id="bit_ball_7" title="128" class="ba_bit ba_0"&gt;&nbsp;&lt;/td&gt;
-  &lt;td id="bit_ball_6" title="64" class="ba_bit ba_0"&gt;&nbsp;&lt;/td&gt;
-  &lt;td id="bit_ball_5" title="32" class="ba_bit ba_0"&gt;&nbsp;&lt;/td&gt;
-  &lt;td id="bit_ball_4" title="16" class="ba_bit ba_0"&gt;&nbsp;&lt;/td&gt;
-  &lt;td id="bit_ball_3" title="8" class="ba_bit ba_0"&gt;&nbsp;&lt;/td&gt;
-  &lt;td id="bit_ball_2" title="4" class="ba_bit ba_0"&gt;&nbsp;&lt;/td&gt;
-  &lt;td id="bit_ball_1" title="2" class="ba_bit ba_0"&gt;&nbsp;&lt;/td&gt;
-  &lt;td id="bit_ball_0" title="1" class="ba_bit ba_0"&gt;&nbsp;&lt;/td&gt;
-&lt;/tr&gt;</pre>
+    <pre>
+&lt;div id="binAbacus" class="ba_abacus"&gt;
 
-    <p>To clear this dependency I will set the initialization of the plugin 
+  &lt;!-- the click sound of a ball ending its trip --&gt;
+  &lt;audio id="ba_clickSound" preload="auto" volume="0.3" style="display:none"&gt;
+    &lt;source type="audio/mp3" src="data:audio/ogg;base64,T2dnUwACAAAAAAAAA...
+    &lt;source type="audio/ogg" src="data:audio/mp3;base64,//PEBAAAAAAAAAAAA...
+  &lt;/audio&gt;
+
+  &lt;!-- the abacus itself --&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td id="bit_ball_7" title="128" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_6" title="64" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_5" title="32" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_4" title="16" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_3" title="8" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_2" title="4" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_1" title="2" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_0" title="1" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td id="bit_digit_7" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_6" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_5" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_4" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_3" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_2" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_1" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_0" class="ba_digit"&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+  &lt;!-- the +1 button --&gt;
+  &lt;div class="ba_numValue"&gt;&amp;nbsp;&lt;/div&gt;
+  &lt;button class="ba_addOne"&gt;+1&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+
+    <p>To clear this dependency I set the initialization of the plugin 
     to generate the DOM elements. </p>
 
     <p>It turns out that the plugin architecture includes an <code>init</code> 
@@ -473,6 +547,21 @@ Done, without errors.</pre>
     like the example code above, with a twist: instead of statically 
     creating 8 cells (an 8-bit abacus), the code loops a number of times, where
     that number is a parameter aptly named <code>numBits</code>, thus: </p>
+
+    <p>Now the required HTML is only the container declaration, an empty 
+    <code>&lt;div&gt;</code>: </p>
+
+    <pre>&lt;div id="binAbacus" /&gt;</pre>
+
+    <p>The default plugin is instantiated thus: </p>
+
+    <pre>
+        // create a binabacus widget
+	$("#binAbacus").binabacus();</pre>
+
+    <p>The initialization code clears the target element and builds the abacus
+    inside it. 
+
 
     <pre>      // build the &lt;td&gt;s of the table rows, one cell per bit, from right to left
       for( i = 0; i &lt; this.settings.numBits; i++ ) {

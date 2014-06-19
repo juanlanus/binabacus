@@ -2,24 +2,14 @@
 <html>
   <head>
     <title>jQuery binabacus</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.js"></script>
     <script src="../dist/jquery.binabacus.js"></script>
     <link href="../dist/jquery.binabacus.css" rel="stylesheet">
   </head>
-  <body>
+  <body style="padding:20px;">
     <script>
       $(function() {
         // create a binabacus widget
-        $("#binAbacus").binabacus({
-          numBits: 12    
-          // ,
-          // silent: true,
-          // clickVolume: '0.1',
-          // ballTravelTime: '0.9s',               // ball travel time (default 0.3s)
-          // ballEasing: 'linear'                  // easing function (default 'ease-in')
-        });
-        // MULTIPLE INSTANCES NOT ALLOWED: create another binabacus widget
-        /*
         $("#binAbacus2").binabacus({
           numBits: 8
           // ,
@@ -27,7 +17,7 @@
           // clickVolume: '0.1',
           // ballTravelTime: '0.9s',               // ball travel time (default 0.3s)
           // ballEasing: 'linear'                  // easing function (default 'ease-in')
-        }); */
+        });
       });
     </script>
 
@@ -39,7 +29,8 @@
     -->
 
     <!-- the widget containers -->
-    <div id="binAbacus" style="margin:1em; padding:2em; background-color:transparent;">
+    <div id="binAbacus" />
+    <div id="binAbacus0" style="margin:1em; padding:2em; background-color:transparent;">
     <div id="binAbacus2" style="margin:1em; padding:2em; background-color:transparent;">
     </div>
 

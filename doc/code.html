@@ -1,0 +1,339 @@
+<!DOCTYPE html >
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Content-Language" content="en">
+  <meta name="description"
+  content="Detailed instructions and insights on how I built a jQuery plugin using jquery-boilerplate.">
+  <title>binabacus - code</title>
+  <script type="text/javascript" src="res/jquery.js">
+ </script>
+  <script type="text/javascript" src="res/doc.js">
+ </script>
+  <link href="res/doc.css" rel="stylesheet">
+  <!-- jQuery tocBuilder plugin Copyright 2011 Rob Kent http://proofbydesign.com/Resources/ -->
+  <script type="text/javascript" src="res/jquery.tocBuilder.js">
+ </script>
+  <link href="res/jquery.tocBuilder.css" rel="stylesheet">
+  <script type="text/javascript" src="res/jquery.binabacus.js">
+ </script>
+  <link href="res/jquery.binabacus.css" rel="stylesheet">
+  <script type="text/javascript">
+      // propagate the plugin name in the text
+      $(document).ready(function () {
+          $('#newName').change(); 
+      });
+
+      function replacePluginName() {
+      // replace the reader's plugin name all around the text in
+      // spans with class "nameInstance"
+        var nameInstances = $('.nameInstance');
+        nameInstances.each(
+          function( i ) {
+            this.textContent = $('#newName').val();
+          }
+        );
+      };
+  </script>
+  <script type="text/javascript">
+    $(function() {
+      // create a binabacus widget
+      $("#binAbacus").binabacus({
+        numBits: 10,
+        silent: false,
+        clickVolume: '0.9',
+        ballTravelTime: '2.9s',          // ball travel time (default 0.3s, not working)
+        ballEasing: 'ease-in'            // easing function (default 'ease-in')
+      });
+    });
+  </script>
+  <style>
+    /* tutorial own styles; TODO: move to general CSS file */
+    #steps > li { margin-top:2em; margin-bottom:1em; }
+    #steps pre  { font-size:90%; }
+    #steps code { font-size:90%; }
+    pre { padding:4px; }
+    .directoryTree { font-family:Consolas,monospace; font-size:90%; line-height:90%; }
+    ul.directoryTree  { list-style-type:none; background-color:#F8F8EC; padding:.5em; width:32em; }
+    .directoryTree ul { list-style-type:none; }
+  </style>
+</head>
+
+<body>
+
+<div id="docHeader">
+<h1>"binabacus" jQuery plugin</h1>
+
+<div id="tocContainer" class="tocContainer">
+</div>
+<hr>
+</div>
+
+<div id="docBody">
+<pre class="small70">(function ( $, window, document, undefined ) {
+
+  // create the defaults once
+  var
+    pluginName = 'binabacus',
+    defaults = {
+      <strong id="numBits">numBits</strong>: 8,                           // number of bits
+      startValue: 0,                        // the initial numeric value displayed
+      ballImage: null,                      // ball image (default embedded)
+      silent: false,                        // silent (default no)
+      clickVolume: 0.3,                     // click volume (default 0.3)
+      clickSound: 'ba_clicksound',          // id of an &lt;audio&gt; element providing the ball's click
+      ballTravelTime: '0.3s',               // ball travel time (default 0.3s)
+      ballEasing: 'ease-in'                 // easing function (default 'ease-in')
+    };
+
+  // the actual plugin constructor
+  function <strong id="Plugin">Plugin</strong> ( element, options ) {
+    this.element = element;
+    // merge options with defaults into this.settings
+    this.settings = $.extend( {}, defaults, options );
+    this._defaults = defaults;
+    this._name = pluginName;
+    this.init();
+  }
+
+  Plugin.<strong id="prototype">prototype</strong> = {
+    // this.element is the target DOM element,
+    // this.settings is the merged options object
+
+    // build the HTML of an audio element loaded with the ball's click, once per page
+    <strong id="buildAudio">buildAudio</strong>: function() {
+
+      if( document.getElementById( this.settings.clickSound )) {
+        // don't create nothing, it's already there
+      } else {
+        // build the default &lt;audio&gt; with two embedded sources: MP3 and OGG
+        var audioHTML =
+        '&lt;audio id="ba_clickSound" preload="auto" volume="'
+        + this.settings.clickVolume
+        + '" style="display:none"&gt;'
+        + this.audioMP3
+        + this.audioOGG
+        + '&lt;/audio&gt;';
+        $('body').append( audioHTML );
+      }
+    },
+
+    <strong id="buildAbacu">buildAbacus</strong>: function() {
+      // clean the target
+      $(this.element).empty();
+
+      var
+        i = 0,
+        row0 = [], // 1st row: the animated balls
+        row1 = [], // 2nd row: the 0s ans 1s
+        HTMLText = // the 2-row table displayed
+          '&lt;div&gt;' +
+          '  &lt;table&gt;' +
+          '    &lt;tbody&gt;' +
+          '      &lt;tr&gt; &lt;!-- first row: animated black balls --&gt;' +
+          '        #first-row#' +
+          '      &lt;/tr&gt;' +
+          '      &lt;tr&gt; &lt;!-- second row: displayed digit values --&gt;' +
+          '        #second-row#' +
+          '      &lt;/tr&gt;' +
+          '    &lt;/tbody&gt;' +
+          '  &lt;/table&gt;' +
+          '  &lt;div class="ba_numValue"&gt;&amp;nbsp;&lt;/div&gt;' +
+          '  &lt;button class="ba_addOne"&gt;+1&lt;/button&gt;' +
+          '&lt;/div&gt;';
+      // build the &lt;td&gt;s of the table rows, one cell per bit, from right to left
+      for( i = 0; i &lt; this.settings.numBits; i++ ) {
+        row0.push( '&lt;td class="ba_bit ba_0" title="' + Math.pow(2, i ) + '"&gt;&amp;nbsp;&lt;/td&gt;' );
+        row1.push( '&lt;td class="ba_digit" title="x' + Math.pow(2, i ) + '"&gt;0&lt;/td&gt;' );
+      }
+      // set the table rows in the table and show the HTML in its container
+      $(this.element).addClass( 'ba_abacus' );
+      $(this.element).html( HTMLText.replace( '#first-row#', row0.reverse().join( '' ) )
+      .replace( '#second-row#', row1.reverse().join( '' ) ) );
+
+      // apply options for ball travel time and easing if present; the css method
+      // returns something like "background-position 0.3s ease-in 0s"
+      var animCSS = $('.ba_abacus td.ba_bit').css( 'transition' ).split( ' ' ),
+      changed = false;
+
+      if( animCSS[0] === 'background-position' ) {
+        if( this.settings.ballTravelTime !== defaults.ballTravelTime ) {
+          // travel time changed: set into second element
+          animCSS[1] = this.settings.ballTravelTime;
+          changed = true;
+        }
+        if( this.settings.ballEasing !== defaults.ballEasing ) {
+          animCSS[2] = this.settings.ballEasing;
+          changed = true;
+        }
+        if( changed ) {
+          // replace in element's css
+          $( '.ba_abacus td.ba_bit' ).css( 'transition', animCSS.join(' ') );
+        }
+      }
+// transition-duration: 120ms
+// document.styleSheets.item(3).rules[0].selectorText
+    },
+
+    // inicialize one binabacus instance
+    <strong id="init">init</strong>: function () {
+      // clear the target element and create the abacus elements
+      this.buildAudio();
+      this.buildAbacus();
+      // TODO: load the displayed value, create a setValue() method
+
+      // create references to the target DOM element
+      var
+        target = this.element;
+
+      // toggle this ball's state when clicked, adjust displayed numeric bit value
+      $( '.ba_bit', target ).on(
+        'click',
+        function() {
+          var $this = $(this);
+          // switch the ball position
+          $this.<strong id="toggleClas">toggleClass</strong>('ba_1 ba_0');
+          // get a ref to the cell that displays the bit value 0/1 (next row, same
+          // column) and toggle it
+          var $theBitValueCell = $(this.parentElement.nextElementSibling)
+          .find('td:eq(' + this.cellIndex +')' );
+          $theBitValueCell.text( $this.hasClass( 'ba_1' ) ? '1' : '0' );
+          // get a reference to the settings object
+          var theSettings = $(this).closest( '.ba_abacus' ).data('plugin_binabacus').settings;
+          // calculate the numeric value looping over the ball cells (the value is the class)
+          var
+            numValue = 0, // bit position, from right to left
+            bitValue = 1, // power of 2 associates to each bit
+            $theBitCells =  $(this.parentElement).children( 'td.ba_bit' );
+          for( var i = theSettings.numBits - 1; i &gt;= 0; i-- ) {
+            numValue += $( $theBitCells[i] ).hasClass( 'ba_1' ) ? bitValue : 0;
+            bitValue *= 2;
+          }
+          $('#binAbacus .ba_numValue').text( numValue );
+        }
+      );
+
+      // make a click sound when the ball hits the other side
+      if( this.settings.silent ) {
+        // don't set this event handler
+      } else {
+        $( '.ba_bit', target ).on(
+          'transitionend',
+          function() {
+            // play the click sound
+            document.getElementById( 'ba_clickSound' ).cloneNode(true).play();
+          }
+        );
+      }
+
+      // add 1 to the number value when the [+1] button is clicked
+      $( '.ba_addOne', target ).on(
+        'click',
+        // scan the bits from right to left flipping them until a zero is reached
+        function() {
+          // get a reference to the settings object
+          var theSettings = $(this).closest( '.ba_abacus' ).data('plugin_binabacus').settings;
+          // do the addition loop
+          var
+            $theBitCells = $(this).closest( '.ba_abacus' ).find( 'tr:eq(0)' ),
+            $theBitCell = null;
+          for( var i = theSettings.numBits - 1; i &gt;= 0; i-- ) {
+            $theBitCell = $( $theBitCells.children( 'td.ba_bit' )[i] );
+            $theBitCell.click();
+            if( $theBitCell.hasClass( 'ba_1' ) ) {
+              break;
+            }
+          }
+        }
+      );
+
+    },
+
+    // you can add more functions like the one below and
+    // call them like so: this.yourOtherFunction(this.element, this.settings).
+    // console.log('xD');
+    yourOtherFunction: function () {
+      // some logic
+    },
+
+    // lengthy literals at the bottom of the file, to lessen scroll during edition
+    <strong id="audioMP3">audioMP3</strong>:
+      '&lt;source type="audio/mp3" src="data:audio/ogg;base64,T2dnUwACAAAAAAAAAADdnnk2AAAAAEJILmoBHgF2b3JiaXMA' +
+      'AAAAAsBdAAAAAAAAwFcBAAAAAACpAU9nZ1MAAAAAAAAAAAAA3Z55NgEAAAALmXdXDj3///////////////+iA3ZvcmJpcy0AAABY' +
+      ... lots of gibberish clipped ... 
+      'AAAAFwBMAQ4ODg4ODg4ODg4ODg4ODg4ODg4ODg=="&gt;',
+
+    <strong id="audioOGG">audioOGG</strong>:
+      '&lt;source type="audio/ogg" src="data:audio/mp3;base64,//PEBAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAbAAAq' +
+      'AAAJCQkSEhISHBwcHCUlJS8vLy84ODg4QkJCS0tLS1VVVVVeXl5eaGhocXFxcXt7e3uEhISOjo6Ol5eXl6Ghoaqqqqq0tLS0vb29' +
+      ... lots of gibberish clipped ... 
+      'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq"&gt;'
+
+  };
+
+  // a really lightweight plugin wrapper around the constructor, preventing against multiple instantiations
+  <strong id="entryPoint">$.fn[ pluginName ]</strong> = function ( settings ) {
+    this.each(function() {
+      if ( !$.data( this, 'plugin_' + pluginName ) ) {
+        $.data( this, 'plugin_' + pluginName, new <a href="#Plugin">Plugin( this, settings )</a> );
+      }
+    });
+
+    // chain jQuery functions
+    return this;
+  };
+
+})<strong id="IIFEParms">( jQuery, window, document )</strong>;</pre>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+</div>
+</body>
+</html>
