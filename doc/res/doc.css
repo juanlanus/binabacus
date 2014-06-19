@@ -1,17 +1,17 @@
-  /* links en el encabezado de página de agenda */
+  /* links en el encabezado de página de doc */
   .extLink              { color:blue; }
   body                  { margin:0px 8px; font-family:Calibri, helvetica, sans-serif; font-size:100%; background-color:#fffff8; }
   html,body             { height:100%; margin-top:0px; }
 
-  #agendaHeader h1      { margin:0px; line-height:1em; margin-bottom:10px; padding-top:0; }
-  #agendaHeader         { max-width:50em; margin:0px; margin-top:50px; }
-  #agendaHeader span#linkPER { margin-left:8em; }
-  #agendaHeader ul      { width:100%; margin:0px; }
-  #agendaHeader li img  { vertical-align:bottom; }
-  #agendaHeader li      { margin-top:0px; margin-bottom:1px }
-  #agendaHeader hr      { width:100%; height:4px; color:#c0c0c0; background-color:#e5e7bc; border:0px; }
-  #agendaLinks p        { color: #606060; font-size: 90%; line-height: 18px; margin: 0; padding: 0; }
-  #agendaLinks p a      { color: #0000C0; }
+  #docHeader h1      { margin:0px; line-height:1em; margin-bottom:10px; padding-top:0; }
+  #docHeader         { max-width:50em; margin:0px; margin-top:1.5em; }
+  #docHeader span#linkPER { margin-left:8em; }
+  #docHeader ul      { width:100%; margin:0px; }
+  #docHeader li img  { vertical-align:bottom; }
+  #docHeader li      { margin-top:0px; margin-bottom:1px }
+  #docHeader hr      { width:100%; height:4px; color:#c0c0c0; background-color:#e5e7bc; border:0px; }
+  #docLinks p        { color: #606060; font-size: 90%; line-height: 18px; margin: 0; padding: 0; }
+  #docLinks p a      { color: #0000C0; }
   
   .imgL                 { float:left; margin-right:2em; }
   .imgR                 { float:right; margin-left:2em; }
@@ -101,15 +101,15 @@
 
 
 @media screen { 
-  #agendaBody           { max-width:44em; }
-  #agendaHeader h1      { text-shadow:0.15em 0.15em 4px #c0c0c0; }
+  #docBody           { max-width:44em; }
+  #docHeader h1      { text-shadow:0.15em 0.15em 4px #c0c0c0; }
   a                     { text-decoration:underline; color:#000040; }
   a:link                { text-decoration:underline; }
   a:visited             { text-decoration:underline; }
   a:hover               { background-color:#ffffd0; text-decoration:underline; }
   body                  {  }
   .prex2em, .presmall, .prex    {  }
-  .agendaHeader ul li a { display:block; }
+  .docHeader ul li a { display:block; }
   .textColumn           { max-width:50em; }
   .focusedInput         { background-color:#f8f8f0; }
   /* tag external links with the ejected arrow */ 
@@ -137,12 +137,12 @@
   
   /* print links href except for class "printNoLinks" */
   .printNoLinks a:after { content:""; }
-  #agendaHeader h1 a:after { content:""; } 
+  #docHeader h1 a:after { content:""; } 
 
   /* don't print internal links */
   a[href^='#']:after { content:""; }
   
   /* no imprime links de navegación */
-  #agendaHeader .fixedHeader a { display:none; }
+  #docHeader .fixedHeader a { display:none; }
 }
 

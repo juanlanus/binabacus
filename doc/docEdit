@@ -1,0 +1,4 @@
+#! /bin/sh
+
+gvim -S doc.vim &
+exit

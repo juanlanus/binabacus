@@ -74,17 +74,18 @@
 
   <h3 style="clear:none;">jquery-boilerplate</h3>
 
-  <p>I developed, for fun, a didactic binary abacus as HTML + CSS + JS in an HTML
-  page. <br>
-  Than I turned it into a jQuery plugin in order to learn how to make
-  jQuery plugins, something I think is valuable for any developer. </p>
+  <p>I developed a didactic binary abacus as HTML + CSS + JS inside an HTML page. <br>
+  It is intended to be featured in my <em title="to be linked here soon">binary
+  numbers</em> micro course. </p>
 
-  <p>It is intended to be featured in my <em>binary numbers</em> litle course. </p>
+  <p>Once it worked I turned it into a jQuery plugin in order to learn how to build
+  jQuery plugins, a knowledge bit that I lacked and I think is valuable to any
+  front-end developer. </p>
 
   <p>After looking around I choose to build it using the
   <a target="_other" href="http://jqueryboilerplate.com">jQuery Boilerplate</a>
   scaffolding, mainly because it's the usual JS starting file but with the plus of
-  a complete project structure and guidance coming from the masters. <br>
+  a complete project structure and wise guidance coming from the masters. <br>
   It was (and still is) authored by the great <a href="https://twitter.com/zenorocha/"
   target="_other" >Zeno Rocha</a> with the collaboration of
   <a href="https://twitter.com/addyosmani/" target="_other">Addy Osmani</a>
@@ -92,24 +93,23 @@
 
   <h3>not a framework, please</h3>
 
-  <p>Notice that I'm avoiding the dreaded <em>framework</em> word. We are overwhelmed
-  by the proliferation of frameworks that offer possibly less development work and
-  other advantages, at the cost of resigning the good parts of programming and
-  having to re-learn how to do things I already knew. <br>
+  <p>Notice that I'm avoiding the dreaded <em>framework</em> word. </p>
+
+  <p>This is not a framework. <br>
+  We are overwhelmed by the proliferation of frameworks that offer possibly less
+  development work and other advantages, after having used it for two years, full time. </p>
+
+  <p>Another downside of frameworks is resigning the good parts of programming. <br>
   Why should we developers would want give up programming, one of the activities we
   enjoy the most, the one that defines us? No answer ... </p>
 
+  <p>Don't dive into a framework without having evaluated and tested it carefully. </p>
+
   <h3>step by step, instructions and insight</h3>
 
-  <p>Below are the steps I followed to move from HTML, CSS and JS code in the <span
-    title="Proof Of Concept">POC</span> page to the same functionality encapsulated
-  into a jQuery plugin, learning how to do it along the journey. </p>
-
-  <p>In the POC page I developed and tested the functionality, and wrote the JS that 
-  animated my binary abacus. For ease, I stuffed the HTML, the CSS and the JS, all 
-  into the single HTML file, because it was a prototype. <br>
-  Making a plugin out of that stuff meant to encapsulate it so that it would be easy
-  and safe to put it to work anywhere else, without a need to even glance at the code. <br>
+  <p>Making a plugin out of my prototype page meant to encapsulate its HTML, CSS and
+  JS so that it would be easy and safe to put it to work anywhere else, without a need
+  to even glance at the code. <br>
   Actually, this is the whole idea of a <em>plugin</em>, isn't it? <br>
   If you need to know about the inner pinnings of a plugin to use it, then it's not a
   <em>plugin</em> but sort of a primitive cut &amp; paste code reuse. </p>
@@ -118,31 +118,35 @@
 
   <ol id="steps">
 
-    <li><h5>learn something about boilerplate</h5>
-      <p>Read the project's <a target="_other"
-      href="https://github.com/jquery-boilerplate/jquery-boilerplate#readme">README</a>
-      and learn about the boilerplate and some of the tools involved. <br>
-      Don't trust the tutorials that offer the ease of doing something without having
-      to learn anything. <br>
-      Actually, it's somehow true, in that you wont learn nothing. </p>
+    <li>
+    <h5>learn something about boilerplate</h5>
+    <p>Read the project's <a target="_other"
+    href="https://github.com/jquery-boilerplate/jquery-boilerplate#readme">README</a>,
+    twice, and learn about the boilerplate and some of the tools involved. <br>
+    Don't trust the tutorials that offer the ease of doing something without having
+    to learn anything. <br>
+    Actually, it's somehow true, in that you wont learn nothing. </p>
     </li>
 
-    <li><h5>give your plugin a name</h5>
+    <li>
+    <h5>give your plugin a name</h5>
     Choose a name for your plugin, mine is "binabacus" (for binary abacus), write it here:
     <input id="newName" type="text" value="binabacus" onchange="replacePluginName();">
     and hit enter to see it displayed in the text of the remaining steps.
     </li>
 
-    <li><h5>get boilerplate</h5>
+    <li>
+    <h5>get boilerplate</h5>
     Go to the <a target="_other"
-      href="https://github.com/jquery-boilerplate/jquery-boilerplate/">boilerplate
-      github page</a> and chose the
-      [<a href="https://github.com/jquery-boilerplate/jquery-boilerplate/archive/master.zip"
-	target="_other">Download ZIP</a>] option. <br>
-      You get the <code>jquery-boilerplate-master.zip</code> file.
+    href="https://github.com/jquery-boilerplate/jquery-boilerplate/">boilerplate
+    github page</a> and chose the
+    [ <a href="https://github.com/jquery-boilerplate/jquery-boilerplate/archive/master.zip"
+    target="_other">Download ZIP</a> ] option. <br>
+    You get the <code>jquery-boilerplate-master.zip</code> file.
     </li>
 
-    <li><h5>set the project structure</h5>
+    <li>
+    <h5>set the project structure</h5>
     Create a directory named <code><span class="nameInstance">binabacus</span></code> (after the
     plugin name) and expand the ZIP there. <br>
     Skip the <code>jquery-boilerplate-master</code> directory level from the ZIP to end
@@ -185,21 +189,23 @@
     directory. <br>
     <code>jquery.<span class="nameInstance">binabacus</span></code> is the complete
     plugin name, and <code>master</code> is the branch. <br>
-    I use a sloppier name because this is such a simple project. 
+    I use a sloppier naming because this is such a simple project. 
     </p>
 
     <p>Edit and rename files replacing "<code>boilerplate</code>" by
     "<code><span class="nameInstance">binabacus</span></code>" where appropriate. </p>
     </li>
 
-    <li><h5>ensure you have Node.js</h5>
+    <li>
+    <h5>ensure you have Node.js</h5>
     <p>The operation of jquery-boilerplate relies on
     <a target="_other" href="http://nodejs.org/">Node.js</a>, which you need to have
     installed, just check the version with the command: <pre>node --version</pre>
     <p>It should be 0.10.xxx or higher.</p>
     </li>
 
-    <li><h5>set the git repo</h5>
+    <li>
+    <h5>set the git repo</h5>
     <p>Initialize the <code>~/<span class="nameInstance">binabacus</span></code>
     directory as a git repo:</p>
     <pre>cd ~/<span class="nameInstance">binabacus</span>
@@ -217,15 +223,17 @@ node_modules
 **/*.bak
 **/*.vim
 .netrwhist</pre>
-    <p>Remember that the "**" here means "in any directory inside the repo
-    hierarchy". </p>
+    <p>Remember that the <code>**</code> here means <em>in any directory level 
+      inside the repo hierarchy</em>. </p>
     </li>
 
-    <li><h5>tame JSHint</h5>
+    <li>
+    <h5>install and tame JSHint</h5>
 
     <p>Go to JSHint "<a target="_other" href="http://jshint.com/install/">Download and
-    Install</a>" page and get the software. It's a Node.js module, so it's easily installed
-    (globally) with: </p>
+    Install</a>" page and don't download anything. It's a Node.js module, so it's 
+    installed (globally) with: </p>
+
     <pre>sudo npm install -g jshint
 
 /usr/bin/jshint -&gt; /usr/lib/node_modules/jshint/bin/jshint
@@ -240,7 +248,7 @@ jshint@2.4.4 /usr/lib/node_modules/jshint
 
     <p>To tame JSHint, I edited <code>.jshintrc</code> according to <a target="_other"
       href="http://jshint.com/docs/options/">the JSHint options page</a> to fit my
-      coding style and preferences, thus: </p>
+    coding style and preferences, thus: </p>
     <pre>{
   "bitwise": true,      // prohibits the use of bitwise operators
   "boss": false,        // suppress warnings about assignments where comparisons are expected
@@ -264,17 +272,20 @@ jshint@2.4.4 /usr/lib/node_modules/jshint
   "unused": true,       // warns when there are defined and never used variables
   "node": false         // defines globals available when running inside of Node.js
 }</pre>
-    <p>This will make the interaction with JSHint easier and more useful, by supressing
-      some error classes that are not relevant for this particular purpose. <br>
-      Of course, some choices are a matter of taste, and none has impact on the the functionality
-      of the final result. </p>
+
+    <p>This will make the JSHint outcome more useful for me, by supressing
+    some error classes that are not relevant for my particular purpose. <br>
+    Of course, some choices are a matter of taste, and none has impact on the the
+    functionality of the final result. </p>
     </li>
 
-    <li><h5>notice potentially useful plugins</h5>
-    Took note of other tool suggestions, to check them later:
+    <li>
+    <h5>notice potentially useful JSHint plugins</h5>
+    In the JSHint download page, I took note of other tool suggestions, to check them
+    later:
     <ul>
-      <li><a target="_other" href="https://github.com/walm/jshint.vim">jshint.vim</a>, VIM
-      plugin and command line tool for running JSHint.</li>
+      <li><a target="_other" href="https://github.com/walm/jshint.vim">jshint.vim</a>,
+      VIM plugin and command line tool for running JSHint.</li>
       <li><a target="_other" href="https://github.com/Shutnik/jshint2.vim">jshint2.vim</a>,
       modern VIM plugin with extra features for running JSHint.</li>
       <li><a target="_other" href="https://github.com/scrooloose/syntastic">Syntastic</a>,
@@ -284,8 +295,11 @@ jshint@2.4.4 /usr/lib/node_modules/jshint
     </ul>
     </li>
 
-    <li><h5>grunt</h5>
-    Installed grunt-cli with the command:
+    <li>
+    <h5>grunt</h5>
+
+    <p>I installed grunt-cli with the command:
+
     <pre>sudo npm install -g grunt-cli
 
 /usr/bin/grunt -&gt; /usr/lib/node_modules/grunt-cli/bin/grunt
@@ -295,11 +309,14 @@ grunt-cli@0.1.13 /usr/lib/node_modules/grunt-cli
 &#x2514;&#x2500;&#x2500; findup-sync@0.1.3 (lodash@2.4.1, glob@3.2.9)</pre>
     </li>
 
-    <li><h5>grunt again</h5>
+    <li>
+    <h5>grunt again</h5>
     Now, to <em>really install grunt</em>, I went to the project directory
     and ran:
+
     <pre>sudo npm install</pre>
-    <p>so all dependencies are satisfied. This installs some cwgrunt plugins: </p>
+
+    <p>so all dependencies are satisfied. This installs some grunt plugins: </p>
     <pre>grunt-contrib-concat@0.3.0 node_modules/grunt-contrib-concat
 
 grunt-cli@0.1.13 node_modules/grunt-cli
@@ -345,7 +362,9 @@ grunt@0.4.4 node_modules/grunt
     <code>npm</code> installs all the packages listed in that file, and the packages
     listed in the package file of each package, etc. </p>
 
-    <p>A grunt smoke test raises errors like the following (after fixing a couple issues): </p>
+    <p>A grunt smoke test raises useful errors like the following (after fixing a
+    couple issues): </p>
+
     <pre>$ cd ~/binabacus
 $ grunt
  ...    
@@ -368,20 +387,25 @@ $ grunt
 
     <p>You have to edit the plugin source, which still consists only in
     the template code. After edition it still complains about the starting
-    semicolon (which has to be deleted) and spots console as undefined. <br>
+    semicolon (which has to be deleted) and spots <code>console</code> as
+    undefined. <br>
     Running </p>
+
     <pre>grunt --force</pre>
-    <p>creates the output files in /dist, with the right banners. Good! </p>
+
+    <p>creates the output files in /dist, with the right banners. <br>
+    This was good because it allowed me to start editing code. </p>
 
     <p>Above, "only the template code" is a way to mean that the js file still
-    does not contain your code. <br>
+    does not contained my code. <br>
     In fact, <a target="_other" 
     ref="https://raw.githubusercontent.com/jquery-boilerplate/jquery-boilerplate/master/src/jquery.boilerplate.js"
-    >this file</a> alone is worth all the positive feedback that the
-    boilerplate is getting. It is full of enlightening comments, placed in 
-    the right places, making quite a useful guide out of it. </p>
+    >this file</a> alone is worth a significant part of the positive feedback
+    that the boilerplate is getting. It is full of enlightening comments, placed
+    in the right places, making quite a useful guide out of it. </p>
 
-    <p>After adapting to the tool the ouput is lean: </p>
+    <p>After abiding to the tool requeriments the ouput is lean: </p>
+
     <pre>$ ~/<span class="nameInstance">binabacus</span>/dist$ grunt
 Running "jshint:files" (jshint) task
 &gt;&gt; 1 file lint free.
@@ -394,10 +418,11 @@ File dist/jquery.<span class="nameInstance">binabacus</span>.min.js created.
 
 Done, without errors.</pre>
     </li>
- 
-    <li><h5>iife</h5>
+     
+    <li>
+    <h5>iife</h5>
     <p>The plugin module structure proposed is of the <span title=
-    "Immediately-invoked function expression">IIFE kind</span>. <p>
+      "Immediately-invoked function expression">IIFE kind</span>. <p>
     Those of us who are not familiar with this way to package js modules
     should do something about it, ASAP. <br>
 
@@ -410,8 +435,9 @@ Done, without errors.</pre>
     <p>The IIFE is written so it builds and returns a js object with members,
     values and functions, as usual. <br>
     The functions it returns comprise the plugin functionality. </p>
- 
-    <li><h5>finally, the plugin</h5>
+     
+    <li>
+    <h5>finally, the plugin</h5>
     <p>At this point there are no excuses left, it comes the programming of
     the plugin itself and its test. In my case it should be working quickly
     since I already have a non-plugin version up and running. </p>
@@ -426,7 +452,7 @@ Done, without errors.</pre>
 
     <p>Firstly, my plugin relies on a specific HTML structure being laid out
     in the page's DOM, like this: <br>
-<pre>&lt;tr&gt;
+    <pre>&lt;tr&gt;
   &lt;td id="bit_ball_7" title="128" class="ba_bit ba_0"&gt;&nbsp;&lt;/td&gt;
   &lt;td id="bit_ball_6" title="64" class="ba_bit ba_0"&gt;&nbsp;&lt;/td&gt;
   &lt;td id="bit_ball_5" title="32" class="ba_bit ba_0"&gt;&nbsp;&lt;/td&gt;
@@ -438,15 +464,17 @@ Done, without errors.</pre>
 &lt;/tr&gt;</pre>
 
     <p>To clear this dependency I will set the initialization of the plugin 
-    to generate the DOM elements. <br>
-    It turns out that the plugin architecture includes an <code>init</code> 
-    method that is executed once, when the plugin is initialized. <br>
-    So I wrote a <code>buildAbacus()</code> function that builds the table
-    from where the code above comes, with a twist: instead of statically 
+    to generate the DOM elements. </p>
+
+    <p>It turns out that the plugin architecture includes an <code>init</code> 
+    method that is executed once, when the plugin is initialized. </p>
+
+    <p>So I wrote a <code>buildAbacus()</code> function that builds a table
+    like the example code above, with a twist: instead of statically 
     creating 8 cells (an 8-bit abacus), the code loops a number of times, where
     that number is a parameter aptly named <code>numBits</code>, thus: </p>
 
-<pre>      // build the &lt;td&gt;s of the table rows, one cell per bit, from right to left
+    <pre>      // build the &lt;td&gt;s of the table rows, one cell per bit, from right to left
       for( i = 0; i &lt; this.settings.numBits; i++ ) {
         row0.push( '&lt;td class="ba_bit ba_0" title="' + Math.pow(2, i ) + '"&gt;&nbsp;&lt;/td&gt;' );
         row1.push( '&lt;td class="ba_digit" title="x' + Math.pow(2, i ) + '"&gt;0&lt;/td&gt;' );
@@ -454,69 +482,95 @@ Done, without errors.</pre>
 
     <p>This brings up the need to pass parameters to the plugin, and to know 
     how to query their values in the code, especially within event hadlers. <br>
-    For now, <code>numBits</code> returns only its default value. </p>
+    For now, <code>numBits</code> is more like a constant, referenced as. </p>
 
+    <pre>this.settings.numBits;</pre>
     </li>
 
-    <li><h5>pluginize your js</h5>
-    Next step is to <em>pluginize</em> the code. For example, as it's going to
-    be encapsulated I'd like to provide a set of options for the user
-    (actually, me) to be able to control the widget. <br>
-    For my binary abacus it seems a must to be able to control the number of bits,
-    or the animation time. <br>
-    In the original POC instance it was hardcoded at 8 bits, and I want the
-    number of bits to be an option. <p>
-    <p>In the setting of the event handlers some of my selectors were ids. <br>
+    <li>
+    <h5>pluginize the js</h5>
+    Next step is to <em>pluginize</em> the code. For example I'd like to provide
+    a set of options for the user (actually, me) to be able to control the widget,
+    like the number of bits, or the animation time. </p>
+
+    <p>In the original code some of my jQuery selectors were ids. <br>
     I replaced them with classes and restricted the context of the jQuery search
-    to the current target element (the container), using the $ function second
-    argument, and this seems much better. Also I changed the CSS selectors to
-    avoid id references. </p>
-    <p>This way it is possible to set more than one instance of the widget
-    in a page. </p>
+    to the current target element (the container), using the <code>$</code> function
+    second argument, and this seems much better.  </p>
+
+    <p>This way it would be possible to set more than one instance of the widget
+    in a single page. </p>
+
     <p>My widget has event handlers, and it turns out immediately that the
-    settings object is not in the scope of the handlers. <br>
+    settings object is not in the scope of the handler functions. <br>
     The init function stashed all the information together with the widget
     container element, thus: </p>
+
     <pre>$.data( this, 'plugin_' + pluginName, new Plugin( this, settings ) );</pre>
     <p>It is accessible with code like this: </p>
     <pre>$( "thecontainer" ).data( "plugin_<span class="nameInstance">binabacus</span>" ).settings.oneOption )</pre>
     <p>The data thing is binded to the container, and my events are binded to
     elements that are descendants of the container so I have to either blaze a
     path upwards from the clicked event several levels up to the container, or
-    bind all the events to the container and filter the actions in code. Try
-    the first option, using jQuery's closest() method. After a while I end up
-    with this: </p>
+    bind all the events to the container and filter the actions in code. I choose
+    the first option, using jQuery's <code>closest()</code> method. <br>
+    I end up with this: </p>
+
     <pre>  // get a reference to the settings object
   var theSettings = $(this).closest( '.ba_abacus' ).data('plugin_<span class="nameInstance">binabacus</span>').settings;</pre>
+
     <p>Placed into an event handler, this line provides access to the settings
-    object if <code>ba_abacus</code> is a class of the widget container. <br>
+    object because <code>ba_abacus</code> is a required class of the widget
+    container. <br>
     All the external names of my widget start with "<code>ba_</code>", the
     initials of the words that make its name. </p>
     </li>
 
-    <li><h5></h5>
-    In the process of <em>pluginizing</em> the code I needed to replace all
-    jQuery id selectors, like <code>$( '#theElementId' )</code> with something
-    else. <br>
-    I realized that if somebody instantiated more then one instance of
-    the widget in a page the id references to repeated id names would be invalid. <br>
-    Instead of id selectors I used DOM tree traversing functions, like the
-    <code>closest()</code> method example shown above.
-    </li>
-
-    <li><h5>no #id selectors</h5>
-    Next step is to generate the HTML. I didn't tell before, but this plugin
+    <li>
+    <h5>generate HTML</h5>
+    <p>Next step is to generate the HTML. As I said before, this plugin
     relies on the existence of very exact HTML in the page, and the only way to
-    ensure this is to clean the target element and build there a subtree from
-    the ground up.
+    ensure this happens is to clean the target element and build there a subtree
+    from the ground up. </p>
+
     <p>I build all the HTML in a string and surface it in a single operation,
     to avoid the annoyance of multiple page reflows. </p>
+    
+    <p>In this part comes the loop that builds <code>numBits</code> bit
+    representation in a loop. </p>
     </li>
 
-    <li><h5>commit to GitHub</h5>
+    <li>
+    <h5>audio and data URIs</h5>
+    <p>If you toyed with the abacus, you noticed that the balls emit
+    a click sound when they hit either of the sides. </p>
+
+    <p>The click is set to happen at the end of the animation that changes a ball
+    (a bit) state from one to zero or viceversa. </p>
+
+    <p>The click thing is implemented with an HTML5 <code>&lt;audio&gt;</code>
+    element that offers the same sound in two versions: mp3 and ogg. </p>
+
+    <p>As I want the plugin to be simple to implement, I built <code>data</code>
+    URIs for both sound files and stashed them into the plugin as lengthy string
+    variables (<code>audioMP3</code> and <code>audioOGG</code>). <br>
+    This way the plugin is more self-contained and the user doesn't have to
+    remember to copy the sound files along with the js and the css and has less
+    opportunities for frustration. </p> 
+
+    <p>The ball background image is also contained into the plugin files, as a
+    data URI in the CSS. </p>
+
+    <p>For the (unlikely) case that a user wanted to use a different sound, the 
+    options allow them to specify their own files. </p>
+    </li>
+
+    <li>
+    <h5>commit to GitHub</h5>
     Now the plugin works. It's not finished, I still have to implement
     several options, but anyway I grunt, commit the work in the local repo and
     create a remote one on GitHub aptly named <code><span class="nameInstance">binabacus</span></code>.
+
     <pre>$ ~/<span class="nameInstance">binabacus</span>$ <strong>git remote add origin https://github.com/juanlanus/<span class="nameInstance">binabacus</span>.git</strong>
 $ ~/<span class="nameInstance">binabacus</span>$ <strong>git push origin master</strong>
 Username for 'https://github.com': (concealed)
@@ -533,10 +587,43 @@ To <strong>https://github.com/juanlanus/<span class="nameInstance">binabacus</sp
     </p>
     </li>
 
-    <li><h5>now come the bugs</h5>
+    <li>
+    <h5>now come the bugs</h5>
     At this point I can say the plugin is complete but not finished. Committing
     and pushing.
     <p>Now it's bug time ... :-) </p>
+
+    <p>Actually, there is a bug: albeit the options allow the user to specify an
+    animation time different from the default, it doesn't work. </p>
+
+    <p>It looked simple at first glance: get the value and apply it to the proper 
+    DOM elements. </p>
+
+    <p>But it turns out that the value is specified into CSS rules for classes 
+    <code>.ba_0</code> and <code>.ba_1</code> that are toggled each time a one 
+    becomes a zero and viceversa. </p>
+
+    <p>The clean solution is to change the CSS rules programmatically, something
+    I didn't noticed before. </p>
+
+    <p>After googling a litle, I found a page with information and a set of
+    functions to add and delete rules, both for web browsers and the IE. <br>
+    It's a short tutorial titled <em><a
+    href="http://www.javascriptkit.com/dhtmltutors/externalcss.shtml"
+    target="_other">Changing external style sheets using the DOM</a></em>. 
+    </p>
+
+    <p>But I don't need to touch the external styles. Remembering that the "C" in
+    "CSS" stands for <em>cascading</em>, it turns out that I only need to provide
+    a rule at the &lt;style&gt; element level. </p>
+
+    <p>This <a target="_other" 
+      href="http://stackoverflow.com/questions/1720320/how-to-dynamically-create-css-class-in-javascript-and-apply">
+      StackOverflow question</a> provides an usable answer (the one by <a target="_other"
+      href="http://stackoverflow.com/users/1360512/shadybones">shadybones</a>) 
+
+http://stackoverflow.com/questions/1720320/how-to-dynamically-create-css-class-in-javascript-and-apply
+
     </li>
 
   </ol>
