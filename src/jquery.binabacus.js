@@ -24,15 +24,15 @@
     this.init();
   }
 
-  Plugin.prototype = {
+  // Add specific members to the prototype
+  $.extend(Plugin.prototype, {
     // this.element is the target DOM element,
     // this.settings is the merged options object
 
     // build the HTML of an audio element loaded with the ball's click, once per page
     buildAudio: function() {
-
       if( document.getElementById( this.settings.clickSound )) {
-        // don't create nothing, it's already there
+        // don't create anything, it's already there
       } else {
         // build the default <audio> with two embedded sources: MP3 and OGG
         var audioHTML =
@@ -401,9 +401,9 @@
       'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq' +
       'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq">'
 
-  };
+  });
 
-  // a really lightweight plugin wrapper around the constructor, preventing against multiple instantiations
+  // plugin wrapper preventing multiple instantiations
   $.fn[ pluginName ] = function ( settings ) {
     this.each(function() {
       if ( !$.data( this, 'plugin_' + pluginName ) ) {
