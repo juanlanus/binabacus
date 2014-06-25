@@ -49,7 +49,7 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 set termencoding=utf-8
 set undodir=~/.vimUndoDir
 set undofile
-set window=43
+set window=42
 set nowrapscan
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -172,12 +172,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 576 - ((14 * winheight(0) + 21) / 43)
+let s:l = 756 - ((25 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-576
-normal! 070|
+756
+normal! 05|
 tabedit binabacus/doc/code.html
 set splitbelow splitright
 set nosplitbelow
@@ -286,12 +286,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 21) / 43)
+let s:l = 10 - ((9 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 0
+10
+normal! 010|
 tabedit binabacus/doc/res/doc.css
 set splitbelow splitright
 set nosplitbelow
@@ -511,16 +511,17 @@ setlocal thesaurus=
 setlocal undofile
 setlocal nowinfixheight
 setlocal nowinfixwidth
-setlocal wrap
+set nowrap
+setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 34 - ((22 * winheight(0) + 21) / 43)
+let s:l = 1 - ((0 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-34
-normal! 025|
-tabnext 1
+1
+normal! 0
+tabnext 4
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

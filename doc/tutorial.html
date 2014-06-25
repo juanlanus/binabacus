@@ -495,7 +495,7 @@ Done, without errors.</pre>
     container element. </p>
 
     <p>The <code>binabacus</code> plugin js, closely aligned with the boilerplate 
-    sample, does the following on jQuery's <code>ready</code> event: 
+    sample, does the following:
     <ul>
       <li>defines a <a target="_code" href="code.html#var">few obvious variables</a>, </li>
       <li>defines the <a target="_code" href="code.html#Plugin"><code>Plugin</code></a>
@@ -504,17 +504,11 @@ Done, without errors.</pre>
       target="_code" href="code.html#prototype"><code>Plugin.prototype</code>
       object</a>, with function members to set the audio and the abacus DOM
       elements, and to furnish then with the proper event handlers, and finally </li>
-      <li>defines the <a target="_code"
+      <li>on jQuery's <code>ready</code> event runs the <a target="_code"
       href="code.html#entryPoint"><code>$.fs.binabacus</code></a> function that
-    starts it all, to be called by jQuery on its <code>ready</code> event. </li>
+    starts it all. </li>
     </ul>
     
-    <p>The first step is that jQuery builds the usual jQuery object made
-    up of all the elements with a <code>binAbacus</code> id, hopefully only one, and
-    passes it via the <code>this</code> reference to the <a target="_code"
-    href="code.html#entryPoint"><code>$.fn.<span class="">binabacus</span></code></a>
-    function. </p>
-  
     <p>First thing, the function checks that the plugin isn't already instantiated. <br>
     To do so it queries the <code title="jQuery.data( element, key, value )">data</code>
     property of the plugin container with key
@@ -525,43 +519,15 @@ Done, without errors.</pre>
     again, this time with <a target="_code" href="code.html#Plugin"><code>$.fn.<span
     class="">the plugin constructor</span></code></a> as the third argument. </p>
 
- <div style="display:none;">   
-<!-- copy & paste strings -->
-http://api.jquery.com/jQuery.data/
-<span class="nameInstance">binabacus</span>
-it does so because jQuery plugins persist their state ...
-<a target="_code" href="code.html#Plugin"><code>$.fn.<span class="">the plugin constructor</span></code></a>
-<a target="_code" href="code.html#audioOGG">eee</a>
-https://github.com/jquery-boilerplate
-</div>
-
-
-
     </li>
-
 
     <li>
     <h5>generate HTML</h5>
 
-    <p>I built all the HTML in a string and surfaced it in a single operation,
-    to avoid the annoyance of multiple page reflows. </p>
-    
-    <p>In this part comes the loop that builds <code>numBits</code> bit
-    representation in a loop. </p>
-
-
-
     <p>The plugin relies on a specific HTML structure being laid out
-    in the page's DOM, like this: <br>
+    in the page's DOM, like this: </p>
     <pre>
 &lt;div id="binAbacus" class="ba_abacus"&gt;
-
-  &lt;!-- the click sound of a ball ending its trip --&gt;
-  &lt;audio id="ba_clickSound" preload="auto" volume="0.3" style="display:none"&gt;
-    &lt;source type="audio/mp3" src="data:audio/ogg;base64,T2dnUwACAAAAAAAAA...
-    &lt;source type="audio/ogg" src="data:audio/mp3;base64,//PEBAAAAAAAAAAAA...
-  &lt;/audio&gt;
-
   &lt;!-- the abacus itself --&gt;
   &lt;table&gt;
     &lt;tbody&gt;
@@ -594,8 +560,10 @@ https://github.com/jquery-boilerplate
 &lt;/div&gt;
 </pre>
 
-    <p>To clear this dependency I set the initialization of the plugin 
-    to generate the DOM elements. </p>
+    <p>The first plugin versions relied on the HTML being there. </p>
+
+    <p>To clear this dependency I set the initialization of the plugin to
+    generate the DOM elements. </p>
 
     <p>It turns out that the plugin architecture includes an <code>init</code> 
     method that is executed once, when the plugin is initialized. </p>
@@ -617,8 +585,7 @@ https://github.com/jquery-boilerplate
 	$("#binAbacus").binabacus();</pre>
 
     <p>The initialization code clears the target element and builds the abacus
-    inside it. 
-
+    inside it. </p>
 
     <pre>      // build the &lt;td&gt;s of the table rows, one cell per bit, from right to left
       for( i = 0; i &lt; this.settings.numBits; i++ ) {
@@ -628,65 +595,34 @@ https://github.com/jquery-boilerplate
 
     <p>This brings up the need to pass parameters to the plugin, and to know 
     how to query their values in the code, especially within event hadlers. <br>
-    For now, <code>numBits</code> is more like a constant, referenced as. </p>
-
-    <pre>this.settings.numBits;</pre>
+    For now, <code>numBits</code> is more like a constant, referenced as 
+    <code>this.settings.numBits;</code>. </p>
     </li>
 
     <li>
-    <h5>pluginize the js</h5>
-    Next step is to <em>pluginize</em> the code. For example I'd like to provide
-    a set of options for the user (actually, me) to be able to control the widget,
-    like the number of bits, or the animation time. </p>
+    <h5>more HTML</h5>
 
-    <p>In the original code some of my jQuery selectors were ids. <br>
-    I replaced them with classes and restricted the context of the jQuery search
-    to the current target element (the container), using the <code>$</code> function
-    second argument, and this seems much better.  </p>
+    <p>The abacus also uses an HTML5 <code>&lt;audio&gt;</code> element that, same 
+    as the abacus table, is <a target="_code" href="code.html#buildAudio">created
+    by the plugin js</a> like so: </p>
 
-    <p>This way it would be possible to set more than one instance of the widget
-    in a single page. </p>
-
-    <p>My widget has event handlers, and it turns out immediately that the
-    settings object is not in the scope of the handler functions. <br>
-    The init function stashed all the information together with the widget
-    container element, thus: </p>
-
-    <pre>$.data( this, 'plugin_' + pluginName, new Plugin( this, settings ) );</pre>
-    <p>It is accessible with code like this: </p>
-    <pre>$( "thecontainer" ).data( "plugin_<span class="nameInstance">binabacus</span>" ).settings.oneOption )</pre>
-    <p>The data thing is binded to the container, and my events are binded to
-    elements that are descendants of the container so I have to either blaze a
-    path upwards from the clicked event several levels up to the container, or
-    bind all the events to the container and filter the actions in code. I choose
-    the first option, using jQuery's <code>closest()</code> method. <br>
-    I end up with this: </p>
-
-    <pre>  // get a reference to the settings object
-  var theSettings = $(this).closest( '.ba_abacus' ).data('plugin_<span class="nameInstance">binabacus</span>').settings;</pre>
-
-    <p>Placed into an event handler, this line provides access to the settings
-    object because <code>ba_abacus</code> is a required class of the widget
-    container. <br>
-    All the external names of my widget start with "<code>ba_</code>", the
-    initials of the words that make its name. </p>
-    </li>
+    <pre>
+  &lt;!-- the click sound of a ball ending its trip --&gt;
+  &lt;audio id="ba_clickSound" preload="auto" volume="0.3" style="display:none"&gt;
+    &lt;source type="audio/mp3" src="data:audio/ogg;base64,T2dnUwACAAAAAAAAA...
+    &lt;source type="audio/ogg" src="data:audio/mp3;base64,//PEBAAAAAAAAAAAA...
+  &lt;/audio&gt; </pre>
 
     <li>
-    <h5>audio and data URIs</h5>
-    <p>If you toyed with the abacus, you noticed that the balls emit
-    a click sound when they hit either of the sides. </p>
-
-    <p>The click is set to happen at the end of the animation that changes a ball
-    (a bit) state from one to zero or viceversa. </p>
-
-    <p>The click thing is implemented with an HTML5 <code>&lt;audio&gt;</code>
-    element that offers the same sound in two versions: mp3 and ogg. </p>
+    <h5>data URIs</h5>
 
     <p>As I want the plugin to be simple to implement, I built <code>data</code>
     URIs for both sound files and stashed them into the plugin as lengthy string
-    variables (<code>audioMP3</code> and <code>audioOGG</code>). <br>
-    This way the plugin is more self-contained and the user doesn't have to
+    variables (<a target="_code" href="code.html#audioMP3"><code>audioMP3</code></a>
+    and <a target="_code" href="code.html#audioOGG"><code>audioOGG</code></a>),
+    instead of providing separate files. </p>
+    
+    <p>This way the plugin is more self-contained and the user doesn't have to
     remember to copy the sound files along with the js and the css and has less
     opportunities for frustration. </p> 
 
@@ -695,16 +631,79 @@ https://github.com/jquery-boilerplate
 
     <p>For the (unlikely) case that a user wanted to use a different sound, the 
     options allow them to specify their own files. </p>
+
+    <p>I built the data URIs using one of the many services available online. Then
+    I broke the sound files in many js lines, to make them safer to handle. It was
+    not possible to do so in the CSS file. </p>
+    </li>
+
+
+ <div style="display:none;">   
+<!-- copy & paste strings -->
+http://api.jquery.com/jQuery.data/
+<span class="nameInstance">binabacus</span>
+it does so because jQuery plugins persist their state ...
+<a target="_code" href="code.html#entryPoint">the initializatin function</a>
+<a target="_code" href="code.html#audioOGG">eee</a>
+https://github.com/jquery-boilerplate
+</div>
+
+
+    <li>
+    <h5>pluginize the js</h5>
+
+    <p>In the original code some of my jQuery selectors were ids. But I think that
+    a plugin doesn't have the right to polute the ids namespace at will, and that 
+    if two instances of the plugin were active at once, it wouldn't work because of
+    the uniqueness requirement for the ids. </p>
+    
+    <p> So I replaced the ids with classes and restricted the context of the jQuery
+    search to the current target element (the container), using the second argument
+    of the <a target="_other" href="http://api.jquery.com/jquery/"><code>$</code></a>
+    function ("context"). </p>
+
+    <p>This way it would be possible to set more than one instance of the widget
+    in a single page. </p>
+
+    <li>
+    <h5>reaching the data from within event handlers</h5> 
+
+    <p>My widget has event handlers, and it turned out that the settings object was
+    not in the scope of the event handler functions. </p>
+    
+    <p>The <a target="_code" href="code.html#entryPoint">the initializatin function</a>
+    stashed all the information together into the widget container element, thus: </p>
+
+    <pre>$.data( this, 'plugin_' + pluginName, new Plugin( this, settings ) );</pre>
+
+    <p>It is accessible with code like this: </p>
+
+    <pre>$( "thecontainer" ).data( "plugin_<span class="nameInstance">binabacus</span>" ).settings.someOption )</pre>
+    <p>The data thing is binded to the container, and my events are binded to
+    elements that are descendants of the container so I have to either blaze a
+    path upwards from the clicked event several levels up to the container, or
+    bind all the events to the container and filter the actions in code. I choose
+    the first option, using jQuery's <code>closest()</code> method. </p>
+    
+    <p>I ended up with this: </p>
+
+    <pre>  // get a reference to the settings object
+  var theSettings = $(this).closest( '.ba_abacus' ).data('plugin_<span class="nameInstance">binabacus</span>').settings;</pre>
+
+    <p>Placed into an event handler, this line provides access to the settings
+    object because <code>ba_abacus</code> is a class applied to the widget container,
+    but would be ambiguous if there were two instances in the same page. </p>
+    
     </li>
 
     <li>
     <h5>commit to GitHub</h5>
-    Now the plugin works. It's not finished, I still have to implement
-    several options, but anyway I grunt, commit the work in the local repo and
-    create a remote one on GitHub aptly named <code><span class="nameInstance">binabacus</span></code>.
+    
+    <p>Every now and then I grunted and commited to the local repo. I also created
+    a remote one on GitHub aptly named <code><span class="nameInstance">binabacus</span></code>.
 
-    <pre>$ ~/<span class="nameInstance">binabacus</span>$ <strong>git remote add origin https://github.com/juanlanus/<span class="nameInstance">binabacus</span>.git</strong>
-$ ~/<span class="nameInstance">binabacus</span>$ <strong>git push origin master</strong>
+    <pre>$ <strong>git remote add origin https://github.com/juanlanus/<span class="NOnameInstance">binabacus</span>.git</strong>
+$ <strong>git push origin master</strong>
 Username for 'https://github.com': (concealed)
 Password for '(the username not shown above)': (even more concealed)
 Counting objects: 22, done.
@@ -712,7 +711,7 @@ Delta compression using up to 2 threads.
 Compressing objects: 100% (19/19), done.
 Writing objects: 100% (22/22), 39.92 KiB | 0 bytes/s, done.
 Total 22 (delta 2), reused 0 (delta 0)
-To <strong>https://github.com/juanlanus/<span class="nameInstance">binabacus</span>.git</strong>
+To <strong>https://github.com/juanlanus/<span class="NOnameInstance">binabacus</span>.git</strong>
  * [new branch]      master -&gt; master</pre>
     <p>Now anyone can reach the project here: <a target="_other"
       href="https://github.com/juanlanus/binabacus.git">https://github.com/juanlanus/binabacus.git</a>
@@ -731,7 +730,7 @@ To <strong>https://github.com/juanlanus/<span class="nameInstance">binabacus</sp
     <p>It looked simple at first glance: get the value and apply it to the proper 
     DOM elements. </p>
 
-    <p>But it turns out that the value is specified into CSS rules for classes 
+    <p>But it turned out that the value is specified into CSS rules for classes 
     <code>.ba_0</code> and <code>.ba_1</code> that are toggled each time a one 
     becomes a zero and viceversa. </p>
 
@@ -752,9 +751,7 @@ To <strong>https://github.com/juanlanus/<span class="nameInstance">binabacus</sp
     <p>This <a target="_other" 
       href="http://stackoverflow.com/questions/1720320/how-to-dynamically-create-css-class-in-javascript-and-apply">
       StackOverflow question</a> provides an usable answer (the one by <a target="_other"
-      href="http://stackoverflow.com/users/1360512/shadybones">shadybones</a>) 
-
-http://stackoverflow.com/questions/1720320/how-to-dynamically-create-css-class-in-javascript-and-apply
+      href="http://stackoverflow.com/users/1360512/shadybones">shadybones</a>) </p>
 
     </li>
 
