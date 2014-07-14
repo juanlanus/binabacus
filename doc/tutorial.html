@@ -13,6 +13,7 @@
 
 <body>
 
+<link href="/a/themes/jl/res/doc.css" rel="stylesheet">
   <script src="/a/themes/jl/res/doc.js"></script>
   <link href="/a/themes/jl/res/doc.css" rel="stylesheet">
   <!-- jQuery tocBuilder plugin Copyright 2011 Rob Kent http://proofbydesign.com/Resources/ -->
@@ -473,18 +474,18 @@
       something about it</a>, ASAP. </p>
 
       <p>The whole module is an anonymous function expression or 
-      literal, starting at <a target="_codePage" href="code.html#IIFEStart">the first
+      literal, starting at <a target="_codePage" href="/a/binabacus-code#IIFEStart">the first
       opening parenthesis of the first line</a>, and ending with <a target="_codePage" 
-      href="code.html#IIFEEnd">the first closing parenthesis of the last line</a>. </p>
+      href="/a/binabacus-code#IIFEEnd">the first closing parenthesis of the last line</a>. </p>
       
-      <p>The <a target="_codePage" href="code.html#IIFEParms">parenthesized expression
+      <p>The <a target="_codePage" href="/a/binabacus-code#IIFEParms">parenthesized expression
       <code>( jQuery, window, document )</code></a> is the arguments set passed for
       execution of the anonymous function expression. </p>
 
       <p>The execution of the IIFE returns an object whose members implement the 
       plugin's functionality. </p>
   <!--
-  <a target="_codePage" href="code.html#entryPoint">
+  <a target="_codePage" href="/a/binabacus-code#entryPoint">
   -->
       </li>
 
@@ -504,15 +505,15 @@
       <p>The <code>binabacus</code> plugin js, closely aligned with the boilerplate 
       sample, does the following:
       <ul>
-        <li>defines a <a target="_codePage" href="code.html#var">few obvious variables</a>, </li>
-        <li>defines the <a target="_codePage" href="code.html#Plugin"><code>Plugin</code></a>
+        <li>defines a <a target="_codePage" href="/a/binabacus-code#var">few obvious variables</a>, </li>
+        <li>defines the <a target="_codePage" href="/a/binabacus-code#Plugin"><code>Plugin</code></a>
         function that acts as the constructor, </li>
         <li>defines the lengthy <a
-        target="_codePage" href="code.html#prototype"><code>Plugin.prototype</code>
+        target="_codePage" href="/a/binabacus-code#prototype"><code>Plugin.prototype</code>
         object</a>, with function members to set the audio and the abacus DOM
         elements, and to furnish then with the proper event handlers, and finally </li>
         <li>on jQuery's <code>ready</code> event runs the <a target="_codePage"
-        href="code.html#entryPoint"><code>$.fs.binabacus</code></a> function that
+        href="/a/binabacus-code#entryPoint"><code>$.fs.binabacus</code></a> function that
       starts it all. </li>
       </ul>
       
@@ -523,7 +524,7 @@
       If the key exists, the function exits silently. </p>
 
       <p>Otherwise it calls <code title="jQuery.data( element, key, value )">data</code>
-      again, this time with <a target="_codePage" href="code.html#Plugin"><code>$.fn.<span
+      again, this time with <a target="_codePage" href="/a/binabacus-code#Plugin"><code>$.fn.<span
       class="">the plugin constructor</span></code></a> as the third argument. </p>
 
       </li>
@@ -612,7 +613,7 @@
       <h5>more HTML</h5>
 
       <p>The abacus also uses an HTML5 <code>&lt;audio&gt;</code> element that, same 
-      as the abacus table, is <a target="_codePage" href="code.html#buildAudio">created
+      as the abacus table, is <a target="_codePage" href="/a/binabacus-code#buildAudio">created
       by the plugin js</a> like so: </p>
 
       <pre>
@@ -632,8 +633,8 @@
 
       <p>As I want the plugin to be simple to implement, I built <code>data</code>
       URIs for both sound files and stashed them into the plugin as lengthy string
-      variables (<a target="_codePage" href="code.html#audioMP3"><code>audioMP3</code></a>
-      and <a target="_codePage" href="code.html#audioOGG"><code>audioOGG</code></a>),
+      variables (<a target="_codePage" href="/a/binabacus-code#audioMP3"><code>audioMP3</code></a>
+      and <a target="_codePage" href="/a/binabacus-code#audioOGG"><code>audioOGG</code></a>),
       instead of providing separate files. </p>
       
       <p>This way the plugin is more self-contained and the user doesn't have to
@@ -661,8 +662,8 @@
   http://api.jquery.com/jQuery.data/
   <span class="nameInstance">binabacus</span>
   it does so because jQuery plugins persist their state ...
-  <a target="_codePage" href="code.html#entryPoint">the initializatin function</a>
-  <a target="_codePage" href="code.html#audioOGG">eee</a>
+  <a target="_codePage" href="/a/binabacus-code#entryPoint">the initializatin function</a>
+  <a target="_codePage" href="/a/binabacus-code#audioOGG">eee</a>
   https://github.com/jquery-boilerplate
   </div>
 
@@ -689,7 +690,7 @@
       <p>My widget has event handlers, and it turned out that the settings object was
       not in the scope of the event handler functions. </p>
       
-      <p>The <a target="_codePage" href="code.html#entryPoint">the initialization function</a>
+      <p>The <a target="_codePage" href="/a/binabacus-code#entryPoint">the initialization function</a>
       stashed all the information together into the widget container element, thus: </p>
 
       <pre>$.data( this, 'plugin_' + pluginName, new Plugin( this, settings ) );</pre>
