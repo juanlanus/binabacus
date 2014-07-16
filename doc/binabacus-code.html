@@ -1,75 +1,83 @@
-<!DOCTYPE html >
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta http-equiv="Content-Language" content="en">
-  <meta name="description"
-  content="Detailed instructions and insights on how I built a jQuery plugin using jquery-boilerplate.">
-  <title>binabacus - code</title>
-  <link rel="shortcut icon" href="res/favicon.png">
-  <script type="text/javascript" src="res/jquery.js">
- </script>
-  <script type="text/javascript" src="res/doc.js">
- </script>
-  <link href="res/doc.css" rel="stylesheet">
-  <!-- jQuery tocBuilder plugin Copyright 2011 Rob Kent http://proofbydesign.com/Resources/ -->
-  <script type="text/javascript" src="res/jquery.tocBuilder.js">
- </script>
-  <link href="res/jquery.tocBuilder.css" rel="stylesheet">
-  <script type="text/javascript" src="res/jquery.binabacus.js">
- </script>
-  <link href="res/jquery.binabacus.css" rel="stylesheet">
-  <script type="text/javascript">
-      // propagate the plugin name in the text
-      $(document).ready(function () {
-          $('#newName').change(); 
-      });
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>binabacus code - Juan Lanus blog</title>
 
-      function replacePluginName() {
-      // replace the reader's plugin name all around the text in
-      // spans with class "nameInstance"
-        var nameInstances = $('.nameInstance');
-        nameInstances.each(
-          function( i ) {
-            this.textContent = $('#newName').val();
-          }
-        );
-      };
-  </script>
-  <script type="text/javascript">
-    $(function() {
-      // create a binabacus widget
-      $("#binAbacus").binabacus({
-        numBits: 10,
-        silent: false,
-        clickVolume: '0.9',
-        ballTravelTime: '2.9s',          // ball travel time (default 0.3s, not working)
-        ballEasing: 'ease-in'            // easing function (default 'ease-in')
-      });
-    });
-  </script>
-  <style>
-    /* tutorial own styles; TODO: move to general CSS file */
-    #steps > li { margin-top:2em; margin-bottom:1em; }
-    #steps pre  { font-size:90%; }
-    #steps code { font-size:90%; }
-    pre { padding:4px; }
-    .directoryTree { font-family:Consolas,monospace; font-size:90%; line-height:90%; }
-    ul.directoryTree  { list-style-type:none; background-color:#F8F8EC; padding:.5em; width:32em; }
-    .directoryTree ul { list-style-type:none; }
-  </style>
-</head>
+    <meta name="description" content="Geek stuff, mostly UI and JS related. ">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,700,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Anonymous+Pro:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/a/themes/jl/css/reset.css">
+    <link rel="stylesheet" href="/a/themes/jl/css/style.css">
+    <link rel="stylesheet" href="/a/themes/jl/css/small.css" media="(max-width: 400px)">
 
-<body>
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/a/feeds/rss">
+    <link rel="shortcut icon" href="/a/themes/jl/img/favicon.png">
 
-<div id="docHeader">
-<h1>"binabacus" jQuery plugin</h1>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-<div id="tocContainer" class="tocContainer"></div>
-<hr>
-</div>
+    <script>var base = '/a/themes/jl/';</script>
+    <!-- <script src="/a/anchor/views/assets/js/zepto.js"></script> -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<div id="docBody">
+    <script src="/a/themes/jl/js/main.js"></script>
+
+      <meta name="viewport" content="width=device-width">
+      <meta name="generator" content="Anchor CMS">
+
+      <meta property="og:title" content="Juan Lanus blog">
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="binabacus-code">
+      <meta property="og:image" content="/a/themes/jl/img/og_image.gif">
+      <meta property="og:site_name" content="Juan Lanus blog">
+      <meta property="og:description" content="Geek stuff, mostly UI and JS related. ">
+
+      </head>
+  <body class="binabacus-code">
+    <div class="main-wrap">
+      <div class="slidey" id="tray">
+        <div class="wrap">
+          <form id="search" action="/a/search" method="post">
+            <label for="term">Search my blog:</label>
+            <input type="search" id="term" name="term" placeholder="To search, type and hit enter&hellip;" value="">
+          </form>
+
+          <aside>
+            <b>Categories</b>
+            <ul>
+                          <li>
+                <a href="/a/category/uncategorised" title="Ain't no category here.">
+                  Uncategorised <span>2</span>
+                </a>
+              </li>
+                        </ul>
+          </aside>
+        </div>
+      </div>
+
+      <header id="top">
+        <a id="logo" href="/a/">
+          <img src="/a/themes/jl/img/tecnosol.png" alt="Juan Lanus blog">
+        </a>
+
+                <nav id="main" role="navigation">
+          <ul>
+                        <li >
+              <a href="/a/posts" title="My posts and thoughts">
+                Posts              </a>
+            </li>
+            
+            <li class="tray">
+              <a href="#tray" class="linky"><img src="/a/themes/jl/img/categories.png" alt="Categories" title="View my posts by category"></a>
+            </li>
+          </ul>
+        </nav>
+              </header>
+    <section class="content wrap">
+      <h1>binabacus code</h1>
+      <div id="docBody">
 <pre class="small70" style="font-size:70%;"><strong><span name="IIFEStart" id="IIFEStart">(</span></strong><span name="outerFunction" id="outerFunction"><strong>function ( $, window, document, undefined )</strong></span> {
 
   // create the defaults once
@@ -81,7 +89,7 @@
       ballImage: null,                      // ball image (default embedded)
       silent: false,                        // silent (default no)
       clickVolume: 0.3,                     // click volume (default 0.3)
-      clickSound: 'ba_clicksound',          // id of an &lt;audio&gt; element providing the ball's click
+      clickSound: 'ba_clicksound',          // id of an audio element providing the ball's click
       ballTravelTime: '0.3s',               // ball travel time (default 0.3s)
       ballEasing: 'ease-in'                 // easing function (default 'ease-in')
     };
@@ -106,14 +114,14 @@
       if( document.getElementById( this.settings.clickSound )) {
         // don't create nothing, it's already there
       } else {
-        // build the default &lt;audio&gt; with two embedded sources: MP3 and OGG
+        // build the default <audio> with two embedded sources: MP3 and OGG
         var audioHTML =
-        '&lt;audio id="ba_clickSound" preload="auto" volume="'
+        '<audio id="ba_clickSound" preload="auto" volume="'
         + this.settings.clickVolume
-        + '" style="display:none"&gt;'
+        + '" style="display:none">'
         + this.audioMP3
         + this.audioOGG
-        + '&lt;/audio&gt;';
+        + '</audio>';
         $('body').append( audioHTML );
       }
     },
@@ -127,24 +135,24 @@
         row0 = [], // 1st row: the animated balls
         row1 = [], // 2nd row: the 0s ans 1s
         HTMLText = // the 2-row table displayed
-          '&lt;div&gt;' +
-          '  &lt;table&gt;' +
-          '    &lt;tbody&gt;' +
-          '      &lt;tr&gt; &lt;!-- first row: animated black balls --&gt;' +
+          '<div>' +
+          '  <table>' +
+          '    <tbody>' +
+          '      <tr> <!-- first row: animated black balls -->' +
           '        #first-row#' +
-          '      &lt;/tr&gt;' +
-          '      &lt;tr&gt; &lt;!-- second row: displayed digit values --&gt;' +
+          '      </tr>' +
+          '      <tr> <!-- second row: displayed digit values -->' +
           '        #second-row#' +
-          '      &lt;/tr&gt;' +
-          '    &lt;/tbody&gt;' +
-          '  &lt;/table&gt;' +
-          '  &lt;div class="ba_numValue"&gt;&amp;nbsp;&lt;/div&gt;' +
-          '  &lt;button class="ba_addOne"&gt;+1&lt;/button&gt;' +
-          '&lt;/div&gt;';
-      // build the &lt;td&gt;s of the table rows, one cell per bit, from right to left
-      for( i = 0; i &lt; this.settings.numBits; i++ ) {
-        row0.push( '&lt;td class="ba_bit ba_0" title="' + Math.pow(2, i ) + '"&gt;&amp;nbsp;&lt;/td&gt;' );
-        row1.push( '&lt;td class="ba_digit" title="x' + Math.pow(2, i ) + '"&gt;0&lt;/td&gt;' );
+          '      </tr>' +
+          '    </tbody>' +
+          '  </table>' +
+          '  <div class="ba_numValue">&nbsp;</div>' +
+          '  <button class="ba_addOne">+1</button>' +
+          '</div>';
+      // build the <td>s of the table rows, one cell per bit, from right to left
+      for( i = 0; i < this.settings.numBits; i++ ) {
+        row0.push( '<td class="ba_bit ba_0" title="' + Math.pow(2, i ) + '">&nbsp;</td>' );
+        row1.push( '<td class="ba_digit" title="x' + Math.pow(2, i ) + '">0</td>' );
       }
       // set the table rows in the table and show the HTML in its container
       <strong id="addClassBaAbacus">$(this.element).addClass( 'ba_abacus' )</strong>;
@@ -205,7 +213,7 @@
             numValue = 0, // bit position, from right to left
             bitValue = 1, // power of 2 associates to each bit
             $theBitCells =  $(this.parentElement).children( 'td.ba_bit' );
-          for( var i = theSettings.numBits - 1; i &gt;= 0; i-- ) {
+          for( var i = theSettings.numBits - 1; i >= 0; i-- ) {
             numValue += $( $theBitCells[i] ).hasClass( 'ba_1' ) ? bitValue : 0;
             bitValue *= 2;
           }
@@ -237,7 +245,7 @@
           var
             $theBitCells = $(this).closest( '.ba_abacus' ).find( 'tr:eq(0)' ),
             $theBitCell = null;
-          for( var i = theSettings.numBits - 1; i &gt;= 0; i-- ) {
+          for( var i = theSettings.numBits - 1; i >= 0; i-- ) {
             $theBitCell = $( $theBitCells.children( 'td.ba_bit' )[i] );
             $theBitCell.click();
             if( $theBitCell.hasClass( 'ba_1' ) ) {
@@ -258,16 +266,16 @@
 
     // lengthy literals at the bottom of the file, to lessen scroll during edition
     <strong id="audioMP3">audioMP3</strong>:
-      '&lt;source type="audio/mp3" src="data:audio/ogg;base64,T2dnUwACAAAAAAAAAADdnnk2AAAAAEJILmoBHgF2b3JiaXMA' +
+      '<source type="audio/mp3" src="data:audio/ogg;base64,T2dnUwACAAAAAAAAAADdnnk2AAAAAEJILmoBHgF2b3JiaXMA' +
       'AAAAAsBdAAAAAAAAwFcBAAAAAACpAU9nZ1MAAAAAAAAAAAAA3Z55NgEAAAALmXdXDj3///////////////+iA3ZvcmJpcy0AAABY' +
       ... lots of gibberish clipped ... 
-      'AAAAFwBMAQ4ODg4ODg4ODg4ODg4ODg4ODg4ODg=="&gt;',
+      'AAAAFwBMAQ4ODg4ODg4ODg4ODg4ODg4ODg4ODg==">',
 
     <strong id="audioOGG">audioOGG</strong>:
-      '&lt;source type="audio/ogg" src="data:audio/mp3;base64,//PEBAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAbAAAq' +
+      '<source type="audio/ogg" src="data:audio/mp3;base64,//PEBAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAbAAAq' +
       'AAAJCQkSEhISHBwcHCUlJS8vLy84ODg4QkJCS0tLS1VVVVVeXl5eaGhocXFxcXt7e3uEhISOjo6Ol5eXl6Ghoaqqqqq0tLS0vb29' +
       ... lots of gibberish clipped ... 
-      'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq"&gt;'
+      'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq">'
 
   };
 
@@ -286,42 +294,84 @@
 }<strong><a name="IIFEEnd" id="IIFEEnd">)</a></strong> <strong id="IIFEParms">( jQuery, window, document )</strong>;</pre>
 
 <div class="noPrint">
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
-  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
+  <p> </p>
   </div>
 </div>
-</body>
+    </section>
+    <div class="wrap">
+      <footer id="bottom">
+        <small>&copy; 2014 Juan Lanus blog. All rights reserved.</small>
+        <ul role="navigation">
+          <li><a href="/a/feeds/rss">RSS</a></li>
+                    <li><a href="https://twitter.com/idiot">@idiot</a></li>
+                    <li><a href="/a/admin" title="Administer your site!">Admin area</a></li>
+          <li><a href="/" title="Return to my website.">Home</a></li>
+        </ul>
+        <div class="noPrint">
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+          <p> </p>
+        </div>
+      </footer>
+
+          </div>
+        </div>
+    </body>
 </html>
+

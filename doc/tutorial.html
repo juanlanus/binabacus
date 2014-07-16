@@ -13,14 +13,18 @@
 
 <body>
 
-<link href="/a/themes/jl/res/doc.css" rel="stylesheet">
-  <script src="/a/themes/jl/res/doc.js"></script>
+  <!-- styles -->
   <link href="/a/themes/jl/res/doc.css" rel="stylesheet">
+
+  <!-- plugins: js & css -->
   <!-- jQuery tocBuilder plugin Copyright 2011 Rob Kent http://proofbydesign.com/Resources/ -->
   <script src="/a/themes/jl/res/jquery.tocBuilder.js"></script>
   <link href="/a/themes/jl/res/jquery.tocBuilder.css" rel="stylesheet">
   <script src="/a/themes/jl/res/jquery.binabacus.js"></script>
   <link href="/a/themes/jl/res/jquery.binabacus.css" rel="stylesheet">
+
+  <!-- javascript -->
+  <script src="/a/themes/jl/res/doc.js"></script>
 
   <script type="text/javascript">
 
@@ -54,8 +58,11 @@
     });
   </script>
 
+
+
+
   <style>
-    /* tutorial own styles; TODO: move to general CSS file */
+    /* tutorial own styles */
     #steps > li { margin-top:2em; margin-bottom:1em; }
     #steps pre  { font-size:80%; }
     #steps code { font-size:80%; }
@@ -65,21 +72,26 @@
     .directoryTree ul { list-style-type:none; }
   </style>
 
+
+
+
   <div id="docBody">
-    <h2>How I built a jQuery plugin using jquery-boilerplate</h2>
+
+    <div id="tocContainer" class="tocContainer"></div>
+    <hr>
 
     <!-- an instance of the binabacus plugin -->
     <div class="imgR framed" id="binAbacus" style="margin:1em; margin-left:2em; padding:1em; background-color:transparent;">
     </div>
 
-    <h3 style="clear:none;">jquery-boilerplate</h3>
+    <h2 style="clear:none;">jquery-boilerplate</h2>
 
     <p>I developed a didactic binary abacus as HTML + CSS + JS inside an HTML page. <br>
     It was intended to be featured in my <em title="to be linked here soon">binary
     numbers</em> micro course. </p>
 
     <p>Once it worked I turned it into a jQuery plugin in order to learn how to build
-    jQuery plugins, a knowledge bit that I lacked and I thought it was gonig to be 
+    jQuery plugins, a knowledge bit that I lacked and I thought it was going to be 
     valuable to me. </p>
 
     <p>After googling for a while I choose to build it using the
@@ -91,7 +103,7 @@
     <a href="https://twitter.com/addyosmani/" target="_otherPage">Addy Osmani</a>
     who is known to be an active JS evangelist and addict. </p>
 
-    <h3>step by step, instructions and insight</h3>
+    <h2>step by step, instructions and insight</h2>
 
     <p>Making a plugin out of my prototype page meant to encapsulate its HTML, CSS and
     JS so that it would be easy and safe for anybody else to put it to work, without the
@@ -102,7 +114,7 @@
     <em>plugin</em> but sort of a primitive cut &amp; paste code reuse. </p>
 
     <p>I apologize if you find that I'm explaining the obviuos; these are things that 
-    once I didn't know and it might be somebody else still not knowing. So please
+    once I didn't know and there might be somebody else still not knowing. So please
     if you find yourself reading about something you already know just skip it, or 
     check it and tell if there are flaws. </p>
 
@@ -122,7 +134,7 @@
       <p>Don't trust the tutorials that offer the ease of doing something without having
       to learn anything. </p>
       
-      <p>Actually, it's somehow true, in that you wont learn anything. </p>
+      <p>Actually, they are somehow honest, in that you won't learn anything. </p>
       </li>
 
       <li>
@@ -137,7 +149,7 @@
       <h5>got boilerplate</h5>
       <p>Went to the <a target="_otherPage"
       href="https://github.com/jquery-boilerplate/jquery-boilerplate/">boilerplate
-      github page</a> and chose the
+      github</a> and chose the
       [ <a href="https://github.com/jquery-boilerplate/jquery-boilerplate/archive/master.zip"
       target="_otherPage">Download ZIP</a> ] option. </p>
       
@@ -147,7 +159,7 @@
       <li>
       <h5>set the project structure</h5>
       <p>Created a directory named <code><span class="nameInstance">binabacus</span></code>
-      (after the plugin name) and expand the ZIP there. </p>
+      (after the plugin name) and expandd the ZIP there. </p>
       <p>As my project is small I skipped the <code>jquery-boilerplate-master</code>
       directory level from the ZIP to end up with a structure thus: </p>
       <ul class="directoryTree">
@@ -183,13 +195,13 @@
         </li>
       </ul>
 
-      <p>Actually the jquery-boilerplate-master was intended to become the 
+      <p>Actually the <code>jquery-boilerplate-master</code> was intended to become the 
       <code>jquery.<span class="nameInstance">binabacus</span>.master</code>  
       directory. </p>
 
       <p><code>jquery.<span class="nameInstance">binabacus</span></code> is the
       complete plugin name, and <code>master</code> is the branch. </p>
-      <p>I use a sloppier naming schema because this is such a simple project. </p>
+      <p>I chose to use a sloppier naming schema because this is such a simple project. </p>
 
       <p>Edited and renamed files replacing "<code>boilerplate</code>" by
       "<code><span class="nameInstance">binabacus</span></code>" where appropriate. </p>
@@ -198,7 +210,7 @@
       <li>
       <h5>checked that my computer had Node.js</h5>
       <p>The operation of jquery-boilerplate's build process relies on
-      <a target="_otherPage" href="http://nodejs.org/">Node.js</a>, which I knwew it was
+      <a target="_otherPage" href="http://nodejs.org/">Node.js</a>, which I knew it was
       installed, I just checked the version with the command:
       <pre>node --version</pre>
       <p>It should be 0.10.xxx or later.</p>
@@ -209,20 +221,20 @@
       <p>Initialized the <code>~/<span class="nameInstance">binabacus</span></code>
       directory as a git repo:</p>
       <pre>cd ~/<span class="nameInstance">binabacus</span>
-  git init</pre>
+git init</pre>
 
       <p>Edited the project's <code>.gitignore</code> file so git doesn't want to
       track files like vim's backup and work files (their names end with ~ or have
       .swX extensions), or any other files littered by my tools. <br>
       For example .bak files written by WinMerge and the like. The outcome was:</p>
       <pre>.DS_Store
-  node_modules
-  **/[._]*.s[a-w][a-z]
-  **/*~
-  **/node_modules
-  **/*.bak
-  **/*.vim
-  .netrwhist</pre>
+node_modules
+**/[._]*.s[a-w][a-z]
+**/*~
+**/node_modules
+**/*.bak
+**/*.vim
+.netrwhist</pre>
       <p>Remember that the <code>**</code> here means <em>in any directory level 
         inside the repo hierarchy</em>. </p>
       </li>
@@ -234,47 +246,47 @@
       it, it turned out to be excellent. </p>
 
       <p>Went to JSHint "<a target="_otherPage" href="http://jshint.com/install/">Download and
-      Install</a>" page but dicn't download anything. It's a Node.js module, so it's 
-      installed (globally) with: </p>
+      Install</a>" page but didn't download anything. It's a Node.js module, so I
+      installed it (globally) with: </p>
 
       <pre>sudo npm install -g jshint
 
-  /usr/bin/jshint -&gt; /usr/lib/node_modules/jshint/bin/jshint
-  jshint@2.4.4 /usr/lib/node_modules/jshint
-  &#x251c;&#x2500;&#x2500; console-browserify@0.1.6
-  &#x251c;&#x2500;&#x2500; exit@0.1.2
-  &#x251c;&#x2500;&#x2500; underscore@1.4.4
-  &#x251c;&#x2500;&#x2500; <strong>shelljs</strong>@0.1.4
-  &#x251c;&#x2500;&#x2500; minimatch@0.2.14 (sigmund@1.0.0, lru-cache@2.5.0)
-  &#x251c;&#x2500;&#x2500; cli@0.4.5 (glob@3.2.9)
-  &#x2514;&#x2500;&#x2500; htmlparser2@3.3.0 (domelementtype@1.1.1, domutils@1.1.6, domhandler@2.1.0, readable-stream@1.0.26-2)</pre>
+/usr/bin/jshint -&gt; /usr/lib/node_modules/jshint/bin/jshint
+jshint@2.4.4 /usr/lib/node_modules/jshint
+&#x251c;&#x2500;&#x2500; console-browserify@0.1.6
+&#x251c;&#x2500;&#x2500; exit@0.1.2
+&#x251c;&#x2500;&#x2500; underscore@1.4.4
+&#x251c;&#x2500;&#x2500; <strong>shelljs</strong>@0.1.4
+&#x251c;&#x2500;&#x2500; minimatch@0.2.14 (sigmund@1.0.0, lru-cache@2.5.0)
+&#x251c;&#x2500;&#x2500; cli@0.4.5 (glob@3.2.9)
+&#x2514;&#x2500;&#x2500; htmlparser2@3.3.0 (domelementtype@1.1.1, domutils@1.1.6, domhandler@2.1.0, readable-stream@1.0.26-2)</pre>
 
-      <p>To tame JSHint, I edited <code>.jshintrc</code> according to <a target="_otherPage"
-        href="http://jshint.com/docs/options/">the JSHint options page</a> to fit my
+    <p>To tame JSHint, I edited <code>.jshintrc</code> according to <a target="_otherPage"
+      href="http://jshint.com/docs/options/">the JSHint options page</a> to fit my
       coding style and preferences, thus: </p>
       <pre>{
-    "bitwise": true,      // prohibits the use of bitwise operators
-    "boss": false,        // suppress warnings about assignments where comparisons are expected
-    "browser": true,      // defines globals exposed by modern browsers
-    "curly": true,        // always put curly braces around blocks in loops and conditional
-    "eqeqeq": true,       // prohibits the use of == and != in favor of === and !==
-    "eqnull": true,       // enforces the use '===' to compare with 'null'
-    "expr": true,         // suppresses warnings about the use of expressions 
-    "immed": true,        // prohibits immediate function invocations not wrapped in parentheses
-    "indent": 2,          // enforces specific tab width
-    "jquery": true,       // defines globals exposed by jQuery
-    "laxbreak": true,     // suppresses warnings about possibly unsafe line breakings
-    "maxlen":140,         // max length of a code line
-    "newcap": true,       // capitalize names of constructor functions
-    "noarg": true,        // prohibits the use of arguments.caller and arguments.callee
-    "onevar": false,      // allows only one var statement per function
-    "quotmark": "single", // enforces the consistency of quotation marks
-    "smarttabs": true,    // suppresses warnings about mixed tabs and spaces
-    "trailing": true,     // makes it an error to leave a trailing whitespace
-    "undef": true,        // prohibits the use of explicitly undeclared variables
-    "unused": true,       // warns when there are defined and never used variables
-    "node": false         // defines globals available when running inside of Node.js
-  }</pre>
+  "bitwise": true,      // prohibits the use of bitwise operators
+  "boss": false,        // suppress warnings about assignments where comparisons are expected
+  "browser": true,      // defines globals exposed by modern browsers
+  "curly": true,        // always put curly braces around blocks in loops and conditional
+  "eqeqeq": true,       // prohibits the use of == and != in favor of === and !==
+  "eqnull": true,       // enforces the use '===' to compare with 'null'
+  "expr": true,         // suppresses warnings about the use of expressions 
+  "immed": true,        // prohibits immediate function invocations not wrapped in parentheses
+  "indent": 2,          // enforces specific tab width
+  "jquery": true,       // defines globals exposed by jQuery
+  "laxbreak": true,     // suppresses warnings about possibly unsafe line breakings
+  "maxlen":140,         // max length of a code line
+  "newcap": true,       // capitalize names of constructor functions
+  "noarg": true,        // prohibits the use of arguments.caller and arguments.callee
+  "onevar": false,      // allows only one var statement per function
+  "quotmark": "single", // enforces the consistency of quotation marks
+  "smarttabs": true,    // suppresses warnings about mixed tabs and spaces
+  "trailing": true,     // makes it an error to leave a trailing whitespace
+  "undef": true,        // prohibits the use of explicitly undeclared variables
+  "unused": true,       // warns when there are defined and never used variables
+  "node": false         // defines globals available when running inside of Node.js
+}</pre>
 
       <p>This will make the JSHint outcome more useful to me, by supressing
       some error classes that are not relevant for my particular purpose. </p>
@@ -302,16 +314,19 @@
       <li>
       <h5>grunted</h5>
 
-      <p><a href="http://gruntjs.com/">Grunt</a> is a task runner like make, ant and maven. I
+      <p><a href="http://gruntjs.com/" target="_otherPage">Grunt</a> is a task runner like make, ant and maven. I
       installed grunt-cli with the command: </p>
 
       <pre>sudo npm install -g grunt-cli
 
-  /usr/bin/grunt -&gt; /usr/lib/node_modules/grunt-cli/bin/grunt
-  grunt-cli@0.1.13 /usr/lib/node_modules/grunt-cli
-  &#x251c;&#x2500;&#x2500; resolve@0.3.1
-  &#x251c;&#x2500;&#x2500; nopt@1.0.10 (abbrev@1.0.4)
-  &#x2514;&#x2500;&#x2500; findup-sync@0.1.3 (lodash@2.4.1, glob@3.2.9)</pre>
+/usr/bin/grunt -&gt; /usr/lib/node_modules/grunt-cli/bin/grunt
+grunt-cli@0.1.13 /usr/lib/node_modules/grunt-cli
+&#x251c;&#x2500;&#x2500; resolve@0.3.1
+&#x251c;&#x2500;&#x2500; nopt@1.0.10 (abbrev@1.0.4)
+&#x2514;&#x2500;&#x2500; findup-sync@0.1.3 (lodash@2.4.1, glob@3.2.9)</pre>
+
+      <p>Grunt is used for the project builds, it runs JsHint, minifies the js code
+      and stores it in the <code>dist</code> folder, etc. </p>
       </li>
 
       <li>
@@ -321,51 +336,49 @@
 
       <pre>sudo npm install</pre>
 
-      <p>so all dependencies are satisfied. This installs a set of grunt plugins: </p>
+      <p>so all dependencies listed in the package.json file are satisfied. This installs
+      a set of grunt plugins: </p>
 
       <pre>grunt-contrib-concat@0.3.0 node_modules/grunt-contrib-concat
 
-  grunt-cli@0.1.13 node_modules/grunt-cli
-  &#x251c;&#x2500;&#x2500; resolve@0.3.1
-  &#x251c;&#x2500;&#x2500; nopt@1.0.10 (abbrev@1.0.4)
-  &#x2514;&#x2500;&#x2500; findup-sync@0.1.3 (glob@3.2.9, lodash@2.4.1)
+grunt-cli@0.1.13 node_modules/grunt-cli
+&#x251c;&#x2500;&#x2500; resolve@0.3.1
+&#x251c;&#x2500;&#x2500; nopt@1.0.10 (abbrev@1.0.4)
+&#x2514;&#x2500;&#x2500; findup-sync@0.1.3 (glob@3.2.9, lodash@2.4.1)
 
-  grunt-contrib-jshint@0.8.0 node_modules/grunt-contrib-jshint
-  &#x2514;&#x2500;&#x2500; jshint@2.4.4 (console-browserify@0.1.6, exit@0.1.2, underscore@1.4.4, shelljs@0.1.4, minimatch@0.2.14, cli@0.4.5, htmlparser2@3.3.0)
+grunt-contrib-jshint@0.8.0 node_modules/grunt-contrib-jshint
+&#x2514;&#x2500;&#x2500; jshint@2.4.4 (console-browserify@0.1.6, exit@0.1.2, underscore@1.4.4, shelljs@0.1.4, minimatch@0.2.14, cli@0.4.5, htmlparser2@3.3.0)
 
-  grunt-contrib-coffee@0.9.0 node_modules/grunt-contrib-coffee
-  &#x251c;&#x2500;&#x2500; chalk@0.4.0 (has-color@0.1.4, ansi-styles@1.0.0, strip-ansi@0.1.1)
-  &#x251c;&#x2500;&#x2500; lodash@2.4.1
-  &#x2514;&#x2500;&#x2500; coffee-script@1.7.1 (mkdirp@0.3.5)
+grunt-contrib-coffee@0.9.0 node_modules/grunt-contrib-coffee
+&#x251c;&#x2500;&#x2500; chalk@0.4.0 (has-color@0.1.4, ansi-styles@1.0.0, strip-ansi@0.1.1)
+&#x251c;&#x2500;&#x2500; lodash@2.4.1
+&#x2514;&#x2500;&#x2500; coffee-script@1.7.1 (mkdirp@0.3.5)
 
-  grunt-contrib-uglify@0.3.3 node_modules/grunt-contrib-uglify
-  &#x251c;&#x2500;&#x2500; chalk@0.4.0 (has-color@0.1.4, ansi-styles@1.0.0, strip-ansi@0.1.1)
-  &#x251c;&#x2500;&#x2500; grunt-lib-contrib@0.6.1 (zlib-browserify@0.0.1)
-  &#x2514;&#x2500;&#x2500; uglify-js@2.4.13 (uglify-to-browserify@1.0.2, async@0.2.10, optimist@0.3.7, source-map@0.1.33)
+grunt-contrib-uglify@0.3.3 node_modules/grunt-contrib-uglify
+&#x251c;&#x2500;&#x2500; chalk@0.4.0 (has-color@0.1.4, ansi-styles@1.0.0, strip-ansi@0.1.1)
+&#x251c;&#x2500;&#x2500; grunt-lib-contrib@0.6.1 (zlib-browserify@0.0.1)
+&#x2514;&#x2500;&#x2500; uglify-js@2.4.13 (uglify-to-browserify@1.0.2, async@0.2.10, optimist@0.3.7, source-map@0.1.33)
 
-  grunt@0.4.4 node_modules/grunt
-  &#x251c;&#x2500;&#x2500; which@1.0.5
-  &#x251c;&#x2500;&#x2500; dateformat@1.0.2-1.2.3
-  &#x251c;&#x2500;&#x2500; eventemitter2@0.4.13
-  &#x251c;&#x2500;&#x2500; getobject@0.1.0
-  &#x251c;&#x2500;&#x2500; rimraf@2.2.6
-  &#x251c;&#x2500;&#x2500; colors@0.6.2
-  &#x251c;&#x2500;&#x2500; grunt-legacy-util@0.1.2
-  &#x251c;&#x2500;&#x2500; hooker@0.2.3
-  &#x251c;&#x2500;&#x2500; async@0.1.22
-  &#x251c;&#x2500;&#x2500; nopt@1.0.10 (abbrev@1.0.4)
-  &#x251c;&#x2500;&#x2500; exit@0.1.2
-  &#x251c;&#x2500;&#x2500; minimatch@0.2.14 (sigmund@1.0.0, lru-cache@2.5.0)
-  &#x251c;&#x2500;&#x2500; lodash@0.9.2
-  &#x251c;&#x2500;&#x2500; coffee-script@1.3.3
-  &#x251c;&#x2500;&#x2500; underscore.string@2.2.1
-  &#x251c;&#x2500;&#x2500; iconv-lite@0.2.11
-  &#x251c;&#x2500;&#x2500; findup-sync@0.1.3 (glob@3.2.9, lodash@2.4.1)
-  &#x251c;&#x2500;&#x2500; glob@3.1.21 (inherits@1.0.0, graceful-fs@1.2.3)
-  &#x2514;&#x2500;&#x2500; js-yaml@2.0.5 (esprima@1.0.4, argparse@0.1.15)</pre>
-
-      <p>The <code>package.json</code> file in the project top directory states
-      the dependencies. </p>
+grunt@0.4.4 node_modules/grunt
+&#x251c;&#x2500;&#x2500; which@1.0.5
+&#x251c;&#x2500;&#x2500; dateformat@1.0.2-1.2.3
+&#x251c;&#x2500;&#x2500; eventemitter2@0.4.13
+&#x251c;&#x2500;&#x2500; getobject@0.1.0
+&#x251c;&#x2500;&#x2500; rimraf@2.2.6
+&#x251c;&#x2500;&#x2500; colors@0.6.2
+&#x251c;&#x2500;&#x2500; grunt-legacy-util@0.1.2
+&#x251c;&#x2500;&#x2500; hooker@0.2.3
+&#x251c;&#x2500;&#x2500; async@0.1.22
+&#x251c;&#x2500;&#x2500; nopt@1.0.10 (abbrev@1.0.4)
+&#x251c;&#x2500;&#x2500; exit@0.1.2
+&#x251c;&#x2500;&#x2500; minimatch@0.2.14 (sigmund@1.0.0, lru-cache@2.5.0)
+&#x251c;&#x2500;&#x2500; lodash@0.9.2
+&#x251c;&#x2500;&#x2500; coffee-script@1.3.3
+&#x251c;&#x2500;&#x2500; underscore.string@2.2.1
+&#x251c;&#x2500;&#x2500; iconv-lite@0.2.11
+&#x251c;&#x2500;&#x2500; findup-sync@0.1.3 (glob@3.2.9, lodash@2.4.1)
+&#x251c;&#x2500;&#x2500; glob@3.1.21 (inherits@1.0.0, graceful-fs@1.2.3)
+&#x2514;&#x2500;&#x2500; js-yaml@2.0.5 (esprima@1.0.4, argparse@0.1.15)</pre>
 
       <p><code>npm</code> installed all the packages listed in that file, and the
       packages listed in the package file of each package, etc. </p>
@@ -376,26 +389,28 @@
       <pre>$ cd ~/binabacus
   $ grunt
    ...    
-  [L3:C2] W015: Expected '(' to have an indentation at 1 instead at 2.
-  ;(function ( $, window, document, undefined ) {
-  [L15:C41] W109: Strings must use singlequote.
-      var pluginName = "defaultPluginName",
-  [L17:C28] W109: Strings must use singlequote.
-        propertyName: "value"
-  [L41:C25] W109: Strings must use singlequote.
-          console.log("xD");
-  [L52:C38] W109: Strings must use singlequote.
-          if ( !$.data( this, "plugin_" + pluginName ) ) {
-  [L53:C34] W109: Strings must use singlequote.
-            $.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
-  [L61:C1] W015: Expected '}' to have an indentation at 3 instead at 1.
-  })( jQuery, window, document );
-  [L41:C9] W117: 'console' is not defined.
-          console.log("xD"); </pre>
+[L3:C2] W015: Expected '(' to have an indentation at 1 instead at 2.
+;(function ( $, window, document, undefined ) {
+[L15:C41] W109: Strings must use singlequote.
+    var pluginName = "defaultPluginName",
+[L17:C28] W109: Strings must use singlequote.
+      propertyName: "value"
+[L41:C25] W109: Strings must use singlequote.
+        console.log("xD");
+[L52:C38] W109: Strings must use singlequote.
+        if ( !$.data( this, "plugin_" + pluginName ) ) {
+[L53:C34] W109: Strings must use singlequote.
+          $.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+[L61:C1] W015: Expected '}' to have an indentation at 3 instead at 1.
+})( jQuery, window, document );
+[L41:C9] W117: 'console' is not defined.
+        console.log("xD"); </pre>
 
-      <p>I edited the plugin source, which still consisted only in the template
-      code. After edition it still complaied about the starting semicolon (which
-      was not an error but I deleted) and spotted <code>console</code> as undefined. </p>
+      <p>In order to silence the JsHint errors I edited slightly the plugin
+      source, which still consisted only in the template code. After edition it
+      still complaied about the starting semicolon (which was not an error but
+      I deleted) and spotted <code>console</code> as undefined. </p>
+
       <p>In bigger projects the developers precede each js file with a semicolon
       to protect them when all the files are concatenated as part of the build
       rutine, but you already knew that and never forget to end any of your js
@@ -426,16 +441,16 @@
       <p>After clearing the errors the ouput was lean: </p>
 
       <pre>$ ~/<span class="NOnameInstance">binabacus</span>/dist$ grunt
-  Running "jshint:files" (jshint) task
-  &gt;&gt; 1 file lint free.
+Running "jshint:files" (jshint) task
+&gt;&gt; 1 file lint free.
 
-  Running "concat:dist" (concat) task
-  File "dist/jquery.<span class="NOnameInstance">binabacus</span>.js" created.
+Running "concat:dist" (concat) task
+File "dist/jquery.<span class="NOnameInstance">binabacus</span>.js" created.
 
-  Running "uglify:my_target" (uglify) task
-  File dist/jquery.<span class="NOnameInstance">binabacus</span>.min.js created.
+Running "uglify:my_target" (uglify) task
+File dist/jquery.<span class="NOnameInstance">binabacus</span>.min.js created.
 
-  Done, without errors.</pre>
+Done, without errors.</pre>
       </li>
 
       <li>
@@ -443,7 +458,8 @@
       <p>At this point there were no excuses left, it was programming and testing 
       time of the plugin itself. </p>
 
-      <p>I made the plugin work, almost without changing the original code. Once 
+      <p>I made the plugin work, almost without changing the original code, copying
+      pasting it into the <code>jquery.boilerplate.js</code> file. Once 
       I had a working instance then it was easy and amenable to turn into a more
       evolved form of life. <br>
       I resisted the urge to build The Definitive Plugin at the first
@@ -453,8 +469,8 @@
       <p>I opened the js with my favorite text editor (<em>what, is there another one?</em>): </p>
 
       <pre title="If you feel ashamed or are discriminated because you can't use vi then check here for an upcoming article that will help you hit the ground running in no time, with full understanding">gvim ~/<span
-      class="nameInstance">binabacus</span>/src/jquery.<span
-      class="nameInstance">binabacus</span>.js</pre>
+  class="nameInstance">binabacus</span>/src/jquery.<span
+  class="nameInstance">binabacus</span>.js</pre>
 
       <p>It came out easy: I was able to replicate the original behavior in no
       time, by cutting and pasting the initialization code from the POC page
@@ -535,38 +551,38 @@
       <p>The plugin relies on a specific HTML structure being laid out
       in the page's DOM, like this: </p>
       <pre>
-  &lt;div id="binAbacus" class="ba_abacus"&gt;
-    &lt;!-- the abacus itself --&gt;
-    &lt;table&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td id="bit_ball_7" title="128" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
-          &lt;td id="bit_ball_6" title="64" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
-          &lt;td id="bit_ball_5" title="32" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
-          &lt;td id="bit_ball_4" title="16" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
-          &lt;td id="bit_ball_3" title="8" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
-          &lt;td id="bit_ball_2" title="4" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
-          &lt;td id="bit_ball_1" title="2" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
-          &lt;td id="bit_ball_0" title="1" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td id="bit_digit_7" class="ba_digit"&gt;0&lt;/td&gt;
-          &lt;td id="bit_digit_6" class="ba_digit"&gt;0&lt;/td&gt;
-          &lt;td id="bit_digit_5" class="ba_digit"&gt;0&lt;/td&gt;
-          &lt;td id="bit_digit_4" class="ba_digit"&gt;0&lt;/td&gt;
-          &lt;td id="bit_digit_3" class="ba_digit"&gt;0&lt;/td&gt;
-          &lt;td id="bit_digit_2" class="ba_digit"&gt;0&lt;/td&gt;
-          &lt;td id="bit_digit_1" class="ba_digit"&gt;0&lt;/td&gt;
-          &lt;td id="bit_digit_0" class="ba_digit"&gt;0&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+&lt;div id="binAbacus" class="ba_abacus"&gt;
+  &lt;!-- the abacus itself --&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td id="bit_ball_7" title="128" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_6" title="64" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_5" title="32" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_4" title="16" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_3" title="8" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_2" title="4" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_1" title="2" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+        &lt;td id="bit_ball_0" title="1" class="ba_bit ba_0"&gt;&amp;nbsp;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td id="bit_digit_7" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_6" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_5" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_4" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_3" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_2" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_1" class="ba_digit"&gt;0&lt;/td&gt;
+        &lt;td id="bit_digit_0" class="ba_digit"&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
 
-    &lt;!-- the +1 button --&gt;
-    &lt;div class="ba_numValue"&gt;&amp;nbsp;&lt;/div&gt;
-    &lt;button class="ba_addOne"&gt;+1&lt;/button&gt;
-  &lt;/div&gt;
-  </pre>
+  &lt;!-- the +1 button --&gt;
+  &lt;div class="ba_numValue"&gt;&amp;nbsp;&lt;/div&gt;
+  &lt;button class="ba_addOne"&gt;+1&lt;/button&gt;
+&lt;/div&gt;
+</pre>
 
       <p>The first plugin version relied on that HTML being there, but it would
       be much better if the user didn't have have the responsibility of laying 
@@ -578,10 +594,11 @@
       <p>It turned out that the plugin architecture included an <code>init</code> 
       method that is executed once, when the plugin is initialized. </p>
 
-      <p>So I wrote a <code>buildAbacus()</code> function that builds a table
-      like the example code above, with a twist: instead of always
+      <p>So I wrote a <a target="_codePage"
+      href="/a/binabacus-code#buildAbacus"><code>buildAbacus()</code></a> function
+      that builds a table like the example code above, with a twist: instead of always
       creating 8 cells (an 8-bit abacus), the code loops a number of times, where
-      that number is a parameter aptly named <code>numBits</code>, thus: </p>
+      that number is a parameter aptly named <code>numBits</code>. </p>
 
       <p>Now the required HTML is only the container declaration, an empty 
       <code>&lt;div&gt;</code>: </p>
@@ -591,20 +608,20 @@
       <p>Recall the user's code for instantiating the plugin in the page: </p>
 
       <pre>
-          // create a binabacus widget
-          $("#binAbacus").binabacus();</pre>
+// create a binabacus widget
+$("#binAbacus").binabacus();</pre>
 
       <p>The initialization code clears the target element and builds the abacus
       inside it. </p>
 
-      <pre>      // build the &lt;td&gt;s of the table rows, one cell per bit, from right to left
-        for( i = 0; i &lt; this.settings.numBits; i++ ) {
-          row0.push( '&lt;td class="ba_bit ba_0" title="' + Math.pow(2, i ) + '"&gt;&nbsp;&lt;/td&gt;' );
-          row1.push( '&lt;td class="ba_digit" title="x' + Math.pow(2, i ) + '"&gt;0&lt;/td&gt;' );
-        }</pre>
+      <pre>// build the &lt;td&gt;s of the table rows, one cell per bit, from right to left
+for( i = 0; i &lt; this.settings.numBits; i++ ) {
+  row0.push( '&lt;td class="ba_bit ba_0" title="' + Math.pow(2, i ) + '"&gt;&nbsp;&lt;/td&gt;' );
+  row1.push( '&lt;td class="ba_digit" title="x' + Math.pow(2, i ) + '"&gt;0&lt;/td&gt;' );
+}</pre>
 
       <p>This brings up the need to pass parameters to the plugin, and to know 
-      how to query their values in the code, especially within event hadlers. <br>
+      how to query their values from within the code, especially from within event hadlers. <br>
       Initially <code>numBits</code> was more like a constant, referenced as 
       <code>this.settings.numBits;</code>. </p>
       </li>
@@ -617,11 +634,11 @@
       by the plugin js</a> like so: </p>
 
       <pre>
-    &lt;!-- the click sound of a ball ending its trip --&gt;
-    &lt;audio id="ba_clickSound" preload="auto" volume="0.3" style="display:none"&gt;
-      &lt;source type="audio/mp3" src="data:audio/ogg;base64,T2dnUwACAAAAAAAAA...
-      &lt;source type="audio/ogg" src="data:audio/mp3;base64,//PEBAAAAAAAAAAAA...
-    &lt;/audio&gt; </pre>
+&lt;!-- the click sound of a ball ending its trip --&gt;
+&lt;audio id="ba_clickSound" preload="auto" volume="0.3" style="display:none"&gt;
+  &lt;source type="audio/mp3" src="data:audio/ogg;base64,T2dnUwACAAAAAAAAA...
+  &lt;source type="audio/ogg" src="data:audio/mp3;base64,//PEBAAAAAAAAAAAA...
+&lt;/audio&gt; </pre>
 
       <p>Each <code>source</code> element ends with a lengthy string containing an 
       audio file that produces a "click" sound. Both sources produce the same
@@ -638,7 +655,7 @@
       instead of providing separate files. </p>
       
       <p>This way the plugin is more self-contained and the user doesn't have to
-      remember to copy the sound files along with the js and the css and has less
+      care about copying the sound files along with the js and the css and has less
       opportunities for frustration. </p> 
 
       <p>The ball background image is also contained into the plugin files, as a
@@ -708,12 +725,24 @@
       
       <p>I ended up with this: </p>
 
-      <pre>  // get a reference to the settings object
-    var theSettings = $(this).closest( '.ba_abacus' ).data('plugin_<span class="nameInstance">binabacus</span>').settings;</pre>
+      <pre>// get a reference to the settings object
+var theSettings = $(this).closest( '.ba_abacus' ).data('plugin_<span class="nameInstance">binabacus</span>').settings;</pre>
 
       <p>Placed into an event handler, this line provides access to the settings
       object because <code>ba_abacus</code> is a class applied to the widget container.
       This would not work if there were two instances of the plugin in the same page. </p>
+
+      <p>In the click event handlers, <code>this</code> references the clicked
+      element. The <code>closest('.ba_abacus')</code> function checks
+      <code>this</code>, it's parent, it's grandparent, etc, until it finds an
+      element that matches the selector, that is, an element with class
+      <code>ba_abacus</code>. This element happens to be the widget container,
+      with that class applied by <a target="_codePage"
+      href="/a/binabacus-code#addClassBaAbacus">the initialization code</a>. </p>
+
+      <p>The container's <code>data</code> property has the settings under the
+      <code>'plugin_binabacus'</code> key, in the <code>.settings</code> member.
+    </p>
       
       </li>
 
@@ -721,19 +750,20 @@
       <h5>commit to GitHub</h5>
       
       <p>Every now and then I grunted and commited to the local repo. I also created
-      a remote one on GitHub aptly named <code><span class="nameInstance">binabacus</span></code>.
+      a remote repo on GitHub named <code><span class="nameInstance">binabacus</span></code>
+      after the plugin.
 
       <pre>$ <strong>git remote add origin https://github.com/juanlanus/<span class="NOnameInstance">binabacus</span>.git</strong>
-  $ <strong>git push origin master</strong>
-  Username for 'https://github.com': (concealed)
-  Password for '(the username not shown above)': (even more concealed)
-  Counting objects: 22, done.
-  Delta compression using up to 2 threads.
-  Compressing objects: 100% (19/19), done.
-  Writing objects: 100% (22/22), 39.92 KiB | 0 bytes/s, done.
-  Total 22 (delta 2), reused 0 (delta 0)
-  To <strong>https://github.com/juanlanus/<span class="NOnameInstance">binabacus</span>.git</strong>
-   * [new branch]      master -&gt; master</pre>
+$ <strong>git push origin master</strong>
+Username for 'https://github.com': (concealed)
+Password for '(the username not shown above)': (even more concealed)
+Counting objects: 22, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (19/19), done.
+Writing objects: 100% (22/22), 39.92 KiB | 0 bytes/s, done.
+Total 22 (delta 2), reused 0 (delta 0)
+To <strong>https://github.com/juanlanus/<span class="NOnameInstance">binabacus</span>.git</strong>
+ * [new branch]      master -&gt; master</pre>
       <p>Now anyone can reach the project here: <a target="_otherPage"
         href="https://github.com/juanlanus/binabacus.git">https://github.com/juanlanus/binabacus.git</a>
       </p>

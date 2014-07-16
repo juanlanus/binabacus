@@ -116,6 +116,9 @@
   a[href^="http:"]      { background:url(linkOut.gif) no-repeat left bottom; padding-left:18px; }
   a[href^="https:"]      { background:url(linkOut.gif) no-repeat left bottom; padding-left:18px; }
   a[href^="http://en.wikipedia.org"] { background:url(WikipediA.gif) no-repeat left 50%; padding-left:18px; }  
+  a[href*="stackoverflow.com"] { background:url(stackoverflow.png) no-repeat left 50%; padding-left:18px; }  
+  a[href*="stackexchange.com"] { background:url(stackoverflow.png) no-repeat left 50%; padding-left:18px; }  
+
   /* a[href^="http://sol."]     { background-image:none; padding-right:0px; } */
   /* - - - - - - - - - - - - - - - - - - - */
 }
